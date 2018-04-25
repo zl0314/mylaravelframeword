@@ -1,0 +1,5 @@
+OPENSSL公钥 私钥生成 方法
+
+1、生成RSA私钥 openssl>genrsa -out rsa_private_key.pem 1024 //得到exponent: 10001
+2、生成modulus: openssl>rsa -in rsa_private_key.pem -noout -modulus
+3、生成RSA公钥 openssl>rsa -in rsa_private_key.pem -pubout -out rsa_public_key.pem

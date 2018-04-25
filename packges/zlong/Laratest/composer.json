@@ -1,0 +1,14 @@
+{
+  "name": "zhang/batchup",
+  "description": "more pic upload",
+  "authors": [
+    {
+      "name": "Zhanglong",
+      "email": "nice5good@126.com"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {},
+  "autoload": {
+  }
+}
