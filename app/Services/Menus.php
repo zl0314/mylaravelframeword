@@ -39,12 +39,15 @@ class Menus
         $html = '';
         $i = 0;
         foreach ( $menus as $k => $r ) {
+
             $none = $i == 0 ? '' : 'none';
             $html .= '<ul class="menus ' . $none . '" id="leftMenu_' . $r['id'] . '">';
             foreach ( $r['submenu'] as $subk => $submenu ) {
                 $html .= ' <li id="SubMenu_' . $submenu['id'] . '"><h3><span class="fa fa-chevron-right"></span> ' . $submenu['display_name'] . '</h3><ul class="sub_menu">';
                 foreach ( $submenu['submenu'] as $subk_2 => $submenu_2 ) {
-                    $html .= '<li id="curMenu_' . str_replace( '.', '_', $submenu_2['name'] ) . '" uri="' . $submenu_2['name'] . '" second_parent="' . $submenu_2['fid'] . '" top_parent="' . $submenu_2['parent']['id'] . '"><a href="' . route( $submenu_2['name'] ) . '"><i class="fa fa-caret-right">&nbsp;</i>' . $submenu_2['display_name'] . '</a></li>';
+                    $routeClass = !empty( explode( '.', $submenu_2['name'] )['0'] ) ? explode( '.', $submenu_2['name'] )['0'] : $submenu_2['name'];
+
+                    $html .= '<li id="curMenu_' . $routeClass . '" uri="' . $submenu_2['name'] . '" second_parent="' . $submenu_2['fid'] . '" top_parent="' . $submenu_2['parent']['id'] . '"><a href="' . route( $submenu_2['name'] ) . '"><i class="fa fa-caret-right">&nbsp;</i>' . $submenu_2['display_name'] . '</a></li>';
                 }
                 $html .= '</ul></li>';
             }
@@ -56,17 +59,10 @@ class Menus
     }
 
     //获取当前路由的菜单信息
-    public static function getMenuInfo ()
+    public static function getMenuInfo ( $name )
     {
         $menu = [];
-        $menus = Permissions::treePermisstionsByLevel();
-        $menusBySubMenu = Permissions::treePermisstionsBySubMenus();
-        $name = Route::currentRouteName();
-        foreach ( $menus as $k => $r ) {
-            if ( $r['name'] == $name ) {
-                $menu = $r;
-            }
-        }
+        $menu = Permissions::where( [ 'name' => $name ] )->first();
 
         return $menu;
     }

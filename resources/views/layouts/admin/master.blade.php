@@ -119,7 +119,7 @@
 <div>
     <!--左侧导航 开始-->
     <div class="menu_box" id="menu_box" style="height:100%;min-height: 600px;">
-        {!! \App\Services\Menus::getLeftMenus() !!}
+        {!! \App\Services\Menus::getLeftMenus($siteClass) !!}
     </div>
     <!--左侧导航 结束-->
 
@@ -146,21 +146,21 @@
 </div>
 
 <script>
-    var menu = {!!  json_encode(\App\Services\Menus::getMenuInfo($siteClass))!!}
+    var menu = {!!  json_encode(\App\Services\Menus::getMenuInfo($siteClass.'.index'))!!}
     $('#menu_box').find('.menus').hide();
 
     $(function () {
         //父级菜单显示
         $('#SubMenu_' + menu.fid).parent().show();
         //当前菜单加焦点
-        $('#curMenu_{{str_replace('.','_',$currRouteName)}}').find('a').addClass('curr');
-        $('#curMenu_{{str_replace('.','_',$currRouteName)}}').find('a > i').addClass('fa fa-circle-o');
+        $('#curMenu_{{$siteClass}}').find('a').addClass('curr');
+        $('#curMenu_{{$siteClass}}').find('a > i').addClass('fa fa-circle-o');
         //显示所有同级菜单
         $('#SubMenu_' + menu.fid).find('.sub_menu').show();
 
         //顶级菜单显示
         $('#top_nav').find('li').removeClass('active');
-        var topParent = $('#curMenu_{{str_replace('.','_',$currRouteName)}}').attr('top_parent');
+        var topParent = $('#curMenu_{{$siteClass}}').attr('top_parent');
         $('#topMenu_' + topParent).addClass('active');
     })
 
