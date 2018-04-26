@@ -1,4 +1,5 @@
 <?php $__env->startSection('content'); ?>
+
     <form action="/admin/roles/permission/<?php echo e($role->id); ?>" method="post">
         <?php echo e(csrf_field()); ?>
 
@@ -19,7 +20,7 @@
                         </div>
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" id="top_menu<?php echo e($r['id']); ?>_child">
                     <?php if(!empty($r['submenu'] )): ?>
                         <?php $__currentLoopData = $r['submenu']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $submenu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="panel panel-default" id="top_menu<?php echo e($submenu['id']); ?>">
@@ -28,7 +29,7 @@
                                         <div class="checkbox">
                                             <label for="menu<?php echo e($submenu['id']); ?>">
                                                 <input parent="<?php echo e($submenu['parent']['id']); ?>"
-                                                       <?php if(!empty($role->id) && in_array($r['id'], array_column($role->permissions()->get()->toArray(), 'id') )  ): ?> checked
+                                                       <?php if(!empty($role->id) && in_array($submenu['id'], array_column($role->permissions()->get()->toArray(), 'id') )  ): ?> checked
                                                        <?php endif; ?>
                                                        onclick="checkPermission(this)"
                                                        type="checkbox"
@@ -51,7 +52,7 @@
 
                                                                 <input parent="<?php echo e(isset($submenu_2['second_parent']) ? $submenu_2['second_parent'] : ''); ?>"
                                                                        onclick="checkPermission(this)" type="checkbox"
-                                                                       <?php if(!empty($role->id) && in_array($r['id'], array_column($role->permissions()->get()->toArray(), 'id') )  ): ?> checked
+                                                                       <?php if(!empty($role->id) && in_array($submenu_2['id'], array_column($role->permissions()->get()->toArray(), 'id') )  ): ?> checked
                                                                        <?php endif; ?>
                                                                        name="permission[<?php echo e($submenu_2['id']); ?>]"
                                                                        id="menu<?php echo e($submenu_2['id']); ?>"
@@ -69,7 +70,7 @@
                                                             <?php $__currentLoopData = \App\Model\Permissions::where(['fid' => $submenu_2['id']])->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $submenu_3): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                                 <label for="menu<?php echo e($submenu_3->id); ?>">
                                                                     <input parent="<?php echo e($submenu_3->fid); ?>"
-                                                                           <?php if(!empty($role->id) && in_array($r['id'], array_column($role->permissions()->get()->toArray(), 'id') )  ): ?> checked
+                                                                           <?php if(!empty($role->id) && in_array($submenu_3->id, array_column($role->permissions()->get()->toArray(), 'id') )  ): ?> checked
                                                                            <?php endif; ?>
                                                                            onclick="selectParent(this)" type="checkbox"
                                                                            id="menu<?php echo e($submenu_3->id); ?>"
@@ -112,7 +113,7 @@
                     cl++
                 }
             });
-
+            console.log(cl);
             if (cl >= 1) {
                 selecttop(true, parent);
             } else {

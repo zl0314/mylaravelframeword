@@ -17,9 +17,10 @@ class LoginController extends BackController
      */
     public function index ()
     {
-        if(Auth::guard( 'admin' )->check()){
-            return redirect( '/admin/index' );
+        if ( Auth::guard( 'admin' )->check() ) {
+            return redirect( '/admin/info' );
         }
+
         return $this->display();
     }
 
@@ -38,9 +39,9 @@ class LoginController extends BackController
             if ( $status ) {
                 $authpwd = md5( time() );
                 Session( [ 'authpwd' => $authpwd ] );
-                Admins::where( [ 'id' => Auth::guard( 'admin' )->id()] )->update( [ 'authpwd' => $authpwd ] );
+                Admins::where( [ 'id' => Auth::guard( 'admin' )->id() ] )->update( [ 'authpwd' => $authpwd ] );
 
-                return redirect( '/admin/index' );
+                return redirect( '/admin/info' );
             } else {
                 return redirect( '/admin/login' )->with( 'msg', '登录失败，请重试' );
             }

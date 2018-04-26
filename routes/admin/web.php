@@ -29,10 +29,10 @@ Route::group( [ 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'ad
     Route::resource( 'permissions', 'PermissionsController' );
 
     //获取权限菜单下子菜单
-    Route::post( '/permissions/getSubMenus', 'PermissionsController@getSubMenus' );
+    Route::post( 'permissions/publicGetSubMenus', 'PermissionsController@getSubMenus' )->name( 'permissions/publicGetSubMenus' );
     Route::get( 'index', 'AdminController@index' )->name( 'admin.index' );
+    Route::get( 'info', 'AdminController@info' )->name( 'admin.info' );
     Route::get( 'quite', 'AdminController@quite' )->name( 'admin.quite' );
-
 
     //系统设置
     Route::resource( 'setting', 'SettingController' );

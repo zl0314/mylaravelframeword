@@ -1,5 +1,6 @@
 @extends('layouts.admin.master')
 @section('content')
+
     <form action="/admin/roles/permission/{{$role->id}}" method="post">
         {{csrf_field()}}
         @foreach(\App\Model\Permissions::treePermisstionsBySubMenus() as $k=>$r)
@@ -19,7 +20,7 @@
                         </div>
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" id="top_menu{{$r['id']}}_child">
                     @if(!empty($r['submenu'] ))
                         @foreach($r['submenu'] as $submenu)
                             <div class="panel panel-default" id="top_menu{{$submenu['id']}}">
@@ -28,7 +29,7 @@
                                         <div class="checkbox">
                                             <label for="menu{{$submenu['id']}}">
                                                 <input parent="{{$submenu['parent']['id']}}"
-                                                       @if(!empty($role->id) && in_array($r['id'], array_column($role->permissions()->get()->toArray(), 'id') )  ) checked
+                                                       @if(!empty($role->id) && in_array($submenu['id'], array_column($role->permissions()->get()->toArray(), 'id') )  ) checked
                                                        @endif
                                                        onclick="checkPermission(this)"
                                                        type="checkbox"
@@ -51,7 +52,7 @@
 
                                                                 <input parent="{{$submenu_2['second_parent'] or ''}}"
                                                                        onclick="checkPermission(this)" type="checkbox"
-                                                                       @if(!empty($role->id) && in_array($r['id'], array_column($role->permissions()->get()->toArray(), 'id') )  ) checked
+                                                                       @if(!empty($role->id) && in_array($submenu_2['id'], array_column($role->permissions()->get()->toArray(), 'id') )  ) checked
                                                                        @endif
                                                                        name="permission[{{$submenu_2['id']}}]"
                                                                        id="menu{{$submenu_2['id']}}"
@@ -68,7 +69,7 @@
                                                             @foreach(\App\Model\Permissions::where(['fid' => $submenu_2['id']])->get() as $submenu_3)
                                                                 <label for="menu{{$submenu_3->id}}">
                                                                     <input parent="{{$submenu_3->fid}}"
-                                                                           @if(!empty($role->id) && in_array($r['id'], array_column($role->permissions()->get()->toArray(), 'id') )  ) checked
+                                                                           @if(!empty($role->id) && in_array($submenu_3->id, array_column($role->permissions()->get()->toArray(), 'id') )  ) checked
                                                                            @endif
                                                                            onclick="selectParent(this)" type="checkbox"
                                                                            id="menu{{$submenu_3->id}}"
@@ -110,7 +111,7 @@
                     cl++
                 }
             });
-
+            console.log(cl);
             if (cl >= 1) {
                 selecttop(true, parent);
             } else {
