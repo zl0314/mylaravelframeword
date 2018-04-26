@@ -51,7 +51,7 @@ class CommonController extends Controller
     public function __construct ()
     {
         $this->currRouteName = Route::currentRouteName();
-        $this->assign('currRouteName', $this->currRouteName);
+        $this->assign( 'currRouteName', $this->currRouteName );
     }
 
     /** 给模板赋值
