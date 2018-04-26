@@ -4,6 +4,7 @@ namespace App\Zl\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Route;
 
 class CommonController extends Controller
 {
@@ -41,10 +42,16 @@ class CommonController extends Controller
      * CommonController constructor.
      */
     public $isMobile = false;
+    /**
+     * 当前产路由名称
+     * @var string
+     */
+    public $currRouteName = '';
 
     public function __construct ()
     {
-
+        $this->currRouteName = Route::currentRouteName();
+        $this->assign('currRouteName', $this->currRouteName);
     }
 
     /** 给模板赋值

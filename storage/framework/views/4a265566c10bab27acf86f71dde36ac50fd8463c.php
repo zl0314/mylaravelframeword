@@ -64,7 +64,7 @@
             if (loaded == 1) {
                 return false;
             }
-            ajax('/admin/permissions/getSubMenus', {id: id, level: level}, function (res) {
+            ajax('/admin/permissions/publicGetSubMenus', {id: id, level: level}, function (res) {
                 if (res == '') {
                     alert_mini('没有子菜单');
                 } else {

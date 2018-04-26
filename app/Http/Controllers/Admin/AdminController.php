@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\DB;
 class AdminController extends BackController
 {
 
+    public function info ()
+    {
+        $vars = [
+            'dontNeedAdd' => true,
+        ];
+        $this->assign( $vars );
+
+        return $this->display( null, 'admin.admin.index' );
+    }
+
     public function index ()
     {
         $vars = [
@@ -97,6 +107,8 @@ class AdminController extends BackController
      */
     public function quite ()
     {
+        app( 'Zcache' )->forget( 'permisstions' . Auth::guard( 'admin' )->user()->id );
+
         Auth::guard( 'admin' )->logout();
 
         return redirect( '/admin/login' );

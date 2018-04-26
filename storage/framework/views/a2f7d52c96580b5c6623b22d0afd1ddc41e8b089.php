@@ -92,7 +92,7 @@
     <nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0px;">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="javascript:;"
+                <a class="navbar-brand" href="/" target="_blank"
                    style="width:100%;min-width: 188px; text-align: center;"><?php echo e(env('APP_CN_NAME')); ?></a>
             </div>
             <div>
@@ -106,9 +106,9 @@
                         <ul class="dropdown-menu">
                             <li><a href="<?php echo e(url('/admin/my')); ?>"><span class="fa fa-user"> 我的资料</span></a></li>
                             <li class="divider"></li>
-                            <li><a href="<?php echo e(url('admin/chpass')); ?>"><span class="fa fa-edit"> 修改密码</span></a></li>
+                            <li><a href="<?php echo e(url('/admin/chpass')); ?>"><span class="fa fa-edit"> 修改密码</span></a></li>
                             <li class="divider"></li>
-                            <li><a href="<?php echo e(url('admin/quite')); ?>"><span class="fa fa-sign-out"> 退出</span></a></li>
+                            <li><a href="<?php echo e(url('/admin/quite')); ?>"><span class="fa fa-sign-out"> 退出</span></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -156,14 +156,14 @@
         //父级菜单显示
         $('#SubMenu_' + menu.fid).parent().show();
         //当前菜单加焦点
-        $('#curMenu_admin_<?php echo e($siteClass); ?>').find('a').addClass('curr');
-        $('#curMenu_admin_<?php echo e($siteClass); ?>').find('a > i').addClass('fa fa-circle-o');
+        $('#curMenu_<?php echo e(str_replace('.','_',$currRouteName)); ?>').find('a').addClass('curr');
+        $('#curMenu_<?php echo e(str_replace('.','_',$currRouteName)); ?>').find('a > i').addClass('fa fa-circle-o');
         //显示所有同级菜单
         $('#SubMenu_' + menu.fid).find('.sub_menu').show();
 
         //顶级菜单显示
         $('#top_nav').find('li').removeClass('active');
-        var topParent = $('#curMenu_admin_<?php echo e($siteClass); ?>').attr('top_parent');
+        var topParent = $('#curMenu_<?php echo e(str_replace('.','_',$currRouteName)); ?>').attr('top_parent');
         $('#topMenu_' + topParent).addClass('active');
     })
 

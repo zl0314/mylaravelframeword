@@ -4,6 +4,7 @@ namespace App\Model;
 
 use App\Zl\Model\MyModel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Permissions extends MyModel
 {
@@ -131,14 +132,31 @@ class Permissions extends MyModel
      */
     protected static function getALLMenus ()
     {
-        return app( 'Zcache' )->remember( 'permisstions', function () {
-            $lists = Permissions::where( [ 'is_menu' => 1 ] )
-                ->orderBy( 'sort', 'desc' )
-                ->orderBy( 'id', 'desc' )
-                ->get()
-                ->toArray();
+        //查询管理员所在的角色， 获取所拥有角色的所有权限
+        $admin = AdminUsers::findOrFail( Auth::guard( 'admin' )->user()->id );
+        if ( !$admin->is_super ) {
+            return app( 'Zcache' )->remember( 'permisstions_' . $admin->id, function () use ( $admin ) {
 
-            return $lists;
-        } );
+                $roles = $admin->roles()->with( [ 'permissions' ] )->get();
+                $permissions = [];
+                foreach ( $roles as $r ) {
+                    foreach ( $r->permissions()->get()->toArray() as $permission ) {
+                        $permissions[] = $permission;
+                    }
+                }
+
+                return $permissions;
+            } );
+        } else {
+            return app( 'Zcache' )->remember( 'permisstions' . $admin->id, function () {
+                $lists = Permissions::where( [ 'is_menu' => 1 ] )
+                    ->orderBy( 'sort', 'desc' )
+                    ->orderBy( 'id', 'desc' )
+                    ->get()
+                    ->toArray();
+
+                return $lists;
+            } );
+        }
     }
 }

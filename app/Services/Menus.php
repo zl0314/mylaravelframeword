@@ -9,6 +9,7 @@ namespace App\Services;
 
 
 use App\Model\Permissions;
+use Illuminate\Support\Facades\Route;
 
 class Menus
 {
@@ -23,7 +24,7 @@ class Menus
             if ( $i == 0 ) {
                 $active = 'class="active"';
             }
-            $html .= '<li ' . $active . ' id="topMenu_'.$r['id'].'"><a href="javascript:;">' . $r['display_name'] . '</a></li>';
+            $html .= '<li ' . $active . ' id="topMenu_' . $r['id'] . '"><a href="javascript:;">' . $r['display_name'] . '</a></li>';
             $i++;
         }
         $html .= '</ul>';
@@ -41,9 +42,9 @@ class Menus
             $none = $i == 0 ? '' : 'none';
             $html .= '<ul class="menus ' . $none . '" id="leftMenu_' . $r['id'] . '">';
             foreach ( $r['submenu'] as $subk => $submenu ) {
-                $html .= ' <li id="SubMenu_'.$submenu['id'].'"><h3><span class="fa fa-chevron-right"></span> ' . $submenu['display_name'] . '</h3><ul class="sub_menu">';
+                $html .= ' <li id="SubMenu_' . $submenu['id'] . '"><h3><span class="fa fa-chevron-right"></span> ' . $submenu['display_name'] . '</h3><ul class="sub_menu">';
                 foreach ( $submenu['submenu'] as $subk_2 => $submenu_2 ) {
-                    $html .= '<li id="curMenu_'.str_replace('.','_', $submenu_2['name']).'" uri="'.$submenu_2['name'].'" second_parent="'.$submenu_2['fid'].'" top_parent="'.$submenu_2['parent']['id'].'"><a href="' . url( str_replace( '.', '/', $submenu_2['name'] ) ) . '"><i class="fa fa-caret-right">&nbsp;</i>' . $submenu_2['display_name'] . '</a></li>';
+                    $html .= '<li id="curMenu_' . str_replace( '.', '_', $submenu_2['name'] ) . '" uri="' . $submenu_2['name'] . '" second_parent="' . $submenu_2['fid'] . '" top_parent="' . $submenu_2['parent']['id'] . '"><a href="' . route( $submenu_2['name'] ) . '"><i class="fa fa-caret-right">&nbsp;</i>' . $submenu_2['display_name'] . '</a></li>';
                 }
                 $html .= '</ul></li>';
             }
@@ -54,14 +55,15 @@ class Menus
         return $html;
     }
 
-    public static function getMenuInfo ( $siteClass )
+    //获取当前路由的菜单信息
+    public static function getMenuInfo ()
     {
         $menu = [];
         $menus = Permissions::treePermisstionsByLevel();
         $menusBySubMenu = Permissions::treePermisstionsBySubMenus();
-
+        $name = Route::currentRouteName();
         foreach ( $menus as $k => $r ) {
-            if ( $r['name'] == 'admin.' . $siteClass ) {
+            if ( $r['name'] == $name ) {
                 $menu = $r;
             }
         }
