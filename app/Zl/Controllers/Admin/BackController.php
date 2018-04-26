@@ -219,7 +219,7 @@ class BackController extends CommonController
             $this->deleteCache();
 
             //return response()->json( [ 'message' => '删除成功' ] );
-            return \Ajax::success( '参数错误' );
+            return \Ajax::success( '删除成功' );
         } else {
             return \Ajax::success( '您不能这样做' );
         }

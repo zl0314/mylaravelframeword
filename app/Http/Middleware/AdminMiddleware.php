@@ -37,9 +37,12 @@ class AdminMiddleware
         $curRouteName = Route::currentRouteName();
         $previousUrl = URL::previous();
 
-        if ( in_array( 'admin.quit', [ 'admin.quit' ] ) || strpos( $curRouteName, 'public' ) !== false ) {
+        if ( in_array( $curRouteName, [ 'admin.quit' ] ) ) {
             return $next( $request );
         } else {
+            if ( strpos( $curRouteName, 'public' ) !== false ) {
+                return $next( $request );
+            }
             $permission = array_column( Permissions::getALLMenus(), 'name' );
             if ( !in_array( $curRouteName, $permission ) ) {
                 if ( $request->ajax() ) {

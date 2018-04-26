@@ -41,7 +41,9 @@
                 dataType: 'json',
                 success: function (res) {
                     layer.msg(res.message, {icon: 1}, function () {
-                        $('#item_' + id).remove();
+                        if (res.success == 1) {
+                            $('#item_' + id).remove();
+                        }
                     });
                 }
             })
