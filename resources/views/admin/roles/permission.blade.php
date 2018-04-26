@@ -20,7 +20,7 @@
                         </div>
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" id="top_menu{{$r['id']}}_child">
                     @if(!empty($r['submenu'] ))
                         @foreach($r['submenu'] as $submenu)
                             <div class="panel panel-default" id="top_menu{{$submenu['id']}}">
@@ -111,7 +111,7 @@
                     cl++
                 }
             });
-
+            console.log(cl);
             if (cl >= 1) {
                 selecttop(true, parent);
             } else {

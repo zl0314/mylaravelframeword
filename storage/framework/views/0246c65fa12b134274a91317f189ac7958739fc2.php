@@ -20,7 +20,7 @@
                         </div>
                     </h3>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body" id="top_menu<?php echo e($r['id']); ?>_child">
                     <?php if(!empty($r['submenu'] )): ?>
                         <?php $__currentLoopData = $r['submenu']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $submenu): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="panel panel-default" id="top_menu<?php echo e($submenu['id']); ?>">
@@ -113,7 +113,7 @@
                     cl++
                 }
             });
-
+            console.log(cl);
             if (cl >= 1) {
                 selecttop(true, parent);
             } else {
