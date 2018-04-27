@@ -25,11 +25,12 @@ Route::group( [ 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'ad
     Route::get( 'roles/permission/{role}', 'RolesController@permission' )->name( 'admin.roles.permisstion' );
     Route::post( 'roles/permission/{role}', 'RolesController@setPermisstion' )->name( 'admin.roles.setPermisstion' );
 
+    //获取权限菜单下子菜单
+    Route::post( 'permissions/publicGetSubMenus', 'PermissionsController@getSubMenus' )->name( 'permissions/publicGetSubMenus' );
+
     Route::resource( 'roles', 'RolesController' );
     Route::resource( 'permissions', 'PermissionsController' );
 
-    //获取权限菜单下子菜单
-    Route::post( 'permissions/publicGetSubMenus', 'PermissionsController@getSubMenus' )->name( 'permissions/publicGetSubMenus' );
 
     Route::get( 'home', 'HomeController@home' )->name( 'home.index' );
     Route::get( 'home/quite', 'HomeController@quite' )->name( 'home.quite' );
