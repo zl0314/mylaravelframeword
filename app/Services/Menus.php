@@ -33,7 +33,7 @@ class Menus
     }
 
     //左侧二级菜单
-    public static function getLeftMenus ()
+    public static function getLeftMenus ( $siteClass )
     {
         $menus = Permissions::treePermisstionsBySubMenus();
         $html = '';

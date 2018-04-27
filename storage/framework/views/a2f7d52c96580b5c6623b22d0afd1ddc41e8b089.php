@@ -106,11 +106,11 @@
                             管理员：<?php echo e(Auth::guard('admin')->user()->username); ?> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="<?php echo e(url('/admin/my')); ?>"><span class="fa fa-user"> 我的资料</span></a></li>
+                            <li><a href="<?php echo e(route('my.index')); ?>"><span class="fa fa-user"> 我的资料</span></a></li>
                             <li class="divider"></li>
-                            <li><a href="<?php echo e(url('/admin/chpass')); ?>"><span class="fa fa-edit"> 修改密码</span></a></li>
+                            <li><a href="<?php echo e(route('my.chpass')); ?>"><span class="fa fa-edit"> 修改密码</span></a></li>
                             <li class="divider"></li>
-                            <li><a href="<?php echo e(url('/admin/quite')); ?>"><span class="fa fa-sign-out"> 退出</span></a></li>
+                            <li><a href="<?php echo e(route('home.quite')); ?>"><span class="fa fa-sign-out"> 退出</span></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -150,18 +150,18 @@
 </div>
 
 <script>
-    var menu = <?php echo json_encode(\App\Services\Menus::getMenuInfo($siteClass.'.index')); ?>
-
     $('#menu_box').find('.menus').hide();
-
     $(function () {
+        var second_parent = $('#curMenu_<?php echo e($siteClass); ?>').attr('second_parent');
         //父级菜单显示
-        $('#SubMenu_' + menu.fid).parent().show();
+        $('#SubMenu_' + second_parent).parent().show();
+
         //当前菜单加焦点
         $('#curMenu_<?php echo e($siteClass); ?>').find('a').addClass('curr');
         $('#curMenu_<?php echo e($siteClass); ?>').find('a > i').addClass('fa fa-circle-o');
+
         //显示所有同级菜单
-        $('#SubMenu_' + menu.fid).find('.sub_menu').show();
+        $('#SubMenu_' + second_parent).find('.sub_menu').show();
 
         //顶级菜单显示
         $('#top_nav').find('li').removeClass('active');

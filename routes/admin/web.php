@@ -13,10 +13,10 @@
 
 Route::group( [ 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin.auth', 'web' ], function () {
 
-    Route::get( 'my', 'AdminController@my' )->name( 'my.index' );
-    Route::post( 'my', 'AdminController@updateInfo' )->name( 'my.store' );
-    Route::get( 'chpass', 'AdminController@chpassForm' )->name( 'my.chpass' );
-    Route::post( 'chpass', 'AdminController@changePassword' )->name( 'my.storepass' );
+    Route::get( 'home/my', 'HomeController@my' )->name( 'my.index' );
+    Route::post( 'home/mymy', 'HomeController@updateInfo' )->name( 'my.store' );
+    Route::get( 'home/mychpass', 'HomeController@chpassForm' )->name( 'my.chpass' );
+    Route::post( 'home/mychpass', 'HomeController@changePassword' )->name( 'my.storepass' );
 
     //管理员列表
     Route::resource( 'adminusers', 'AdminUsersController' );
@@ -30,9 +30,9 @@ Route::group( [ 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'ad
 
     //获取权限菜单下子菜单
     Route::post( 'permissions/publicGetSubMenus', 'PermissionsController@getSubMenus' )->name( 'permissions/publicGetSubMenus' );
-    Route::get( 'index', 'AdminController@index' )->name( 'admin.index' );
-    Route::get( 'info', 'AdminController@info' )->name( 'admin.info' );
-    Route::get( 'quite', 'AdminController@quite' )->name( 'admin.quite' );
+
+    Route::get( 'home', 'HomeController@home' )->name( 'home.index' );
+    Route::get( 'home/quite', 'HomeController@quite' )->name( 'home.quite' );
 
     //系统设置
     Route::resource( 'setting', 'SettingController' );
