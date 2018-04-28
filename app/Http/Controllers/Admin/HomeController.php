@@ -10,28 +10,19 @@ use App\Zl\Controllers\Admin\BackController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class AdminController extends BackController
+class HomeController extends BackController
 {
 
-    public function info ()
+    public function home ()
     {
         $vars = [
             'dontNeedAdd' => true,
         ];
         $this->assign( $vars );
 
-        return $this->display( null, 'admin.admin.index' );
+        return $this->display();
     }
 
-    public function index ()
-    {
-        $vars = [
-            'dontNeedAdd' => true,
-        ];
-        $this->assign( $vars );
-
-        return $this->display( null, 'admin.admin.index' );
-    }
 
     /**
      * 修改密码表单

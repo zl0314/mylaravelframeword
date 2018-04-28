@@ -25,7 +25,6 @@ class Rbac extends Migration
         Schema::create( 'permissions', function ( Blueprint $table ) {
             $table->increments( 'id' );
             $table->integer( 'fid' )->unsigned()->default( 0 )->comment( '菜单父ID' );
-            $table->string( 'icon' )->nullable()->comment( '图标class' );
             $table->string( 'name' )->unique();
             $table->string( 'display_name' )->nullable();
             $table->string( 'description' )->nullable();

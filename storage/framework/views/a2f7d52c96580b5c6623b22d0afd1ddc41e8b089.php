@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="csrf_token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="{{asset('/static/admin/css/ch-ui.admin.css')}}">
-    <link rel="stylesheet" href="{{asset('/static/admin/font/css/font-awesome.min.css')}}">
-    <script type="text/javascript" src="{{asset('/static/admin/js/jquery.js')}}"></script>
-    <script type="text/javascript" src="{{asset('/static/admin/js/ch-ui.admin.js')}}"></script>
+    <meta name="csrf_token" content="<?php echo e(csrf_token()); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('/static/admin/css/ch-ui.admin.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('/static/admin/font/css/font-awesome.min.css')); ?>">
+    <script type="text/javascript" src="<?php echo e(asset('/static/admin/js/jquery.js')); ?>"></script>
+    <script type="text/javascript" src="<?php echo e(asset('/static/admin/js/ch-ui.admin.js')); ?>"></script>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
     <!-- Latest compiled and minified JS -->
@@ -15,11 +15,11 @@
     <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css">
     <script src="/static/js/global.js"></script>
 </head>
-<title>{{env('APP_CN_NAME')}}</title>
+<title><?php echo e(env('APP_CN_NAME')); ?></title>
 <body>
 <script>
-    var public_key = "{{config('rsa.rsa_module')}}";
-    var public_length = "{{config('rsa.e')}}";
+    var public_key = "<?php echo e(config('rsa.rsa_module')); ?>";
+    var public_length = "<?php echo e(config('rsa.e')); ?>";
     $.ajaxSetup({
         headers: { // 默认添加请求头
             'X-CSRF-TOKEN': $('meta[name="csrf_token"]').attr('content')
@@ -36,7 +36,7 @@
             btn: ['确认', '取消'] //按钮
         }, function () {
             $.ajax({
-                url: '{{url(request()->path())}}/' + id,
+                url: '<?php echo e(url(request()->path())); ?>/' + id,
                 method: 'DELETE',
                 dataType: 'json',
                 success: function (res) {
@@ -61,7 +61,7 @@
         } else {
             layer.confirm('确定删除这些信息吗？', function () {
                 $.ajax({
-                    url: '{{url('/admin/batchDel')}}/{{$siteClass}}',
+                    url: '<?php echo e(url('/admin/batchDel')); ?>/<?php echo e($siteClass); ?>',
                     method: 'POST',
                     dataType: 'json',
                     data: {ids: ids},
@@ -95,21 +95,22 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/" target="_blank"
-                   style="width:100%;min-width: 188px; text-align: center;">{{env('APP_CN_NAME')}}</a>
+                   style="width:100%;min-width: 188px; text-align: center;"><?php echo e(env('APP_CN_NAME')); ?></a>
             </div>
             <div>
-                {!!  \App\Services\Menus::getTopMenus() !!}
+                <?php echo \App\Services\Menus::getTopMenus(); ?>
+
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
-                            管理员：{{Auth::guard('admin')->user()->username}} <b class="caret"></b>
+                            管理员：<?php echo e(Auth::guard('admin')->user()->username); ?> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{route('my.index')}}"><span class="fa fa-user"> 我的资料</span></a></li>
+                            <li><a href="<?php echo e(route('my.index')); ?>"><span class="fa fa-user"> 我的资料</span></a></li>
                             <li class="divider"></li>
-                            <li><a href="{{route('my.chpass')}}"><span class="fa fa-edit"> 修改密码</span></a></li>
+                            <li><a href="<?php echo e(route('my.chpass')); ?>"><span class="fa fa-edit"> 修改密码</span></a></li>
                             <li class="divider"></li>
-                            <li><a href="{{route('home.quite')}}"><span class="fa fa-sign-out"> 退出</span></a></li>
+                            <li><a href="<?php echo e(route('home.quite')); ?>"><span class="fa fa-sign-out"> 退出</span></a></li>
                         </ul>
                     </li>
                 </ul>
@@ -121,27 +122,28 @@
 <div>
     <!--左侧导航 开始-->
     <div class="menu_box" id="menu_box" style="height:100%;min-height: 600px;">
-        {!! \App\Services\Menus::getLeftMenus($siteClass) !!}
+        <?php echo \App\Services\Menus::getLeftMenus($siteClass); ?>
+
     </div>
     <!--左侧导航 结束-->
 
     <!--主体部分 开始-->
     <div class="main_box" id="main_box">
-        @include('layouts.admin.crumb')
+        <?php echo $__env->make('layouts.admin.crumb', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
         <div class="container" style="margin-top:10px;width:99%">
-            @include('flash::message')
-            {{--不显示 列表 添加 导航的类--}}
-            {{--@if($siteClass != 'index' && $siteClass != 'chpass' && $siteClass != 'my')--}}
+            <?php echo $__env->make('flash::message', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+            
+            
 
-            @if(file_exists(resource_path().'/views/admin/'.$siteClass.'/nav.blade.php'))
-                @includeIf('admin.'.$siteClass.'.nav')
-            @else
-                @include('layouts.admin.nav')
-            @endif
-            {{--@endif--}}
+            <?php if(file_exists(resource_path().'/views/admin/'.$siteClass.'/nav.blade.php')): ?>
+                <?php if ($__env->exists('admin.'.$siteClass.'.nav')) echo $__env->make('admin.'.$siteClass.'.nav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+            <?php else: ?>
+                <?php echo $__env->make('layouts.admin.nav', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+            <?php endif; ?>
+            
 
-            @yield('content')
+            <?php echo $__env->yieldContent('content'); ?>
         </div>
     </div>
     <!--主体部分 结束-->
@@ -150,20 +152,20 @@
 <script>
     $('#menu_box').find('.menus').hide();
     $(function () {
-        var second_parent = $('#curMenu_{{$siteClass}}').attr('second_parent');
+        var second_parent = $('#curMenu_<?php echo e($siteClass); ?>').attr('second_parent');
         //父级菜单显示
         $('#SubMenu_' + second_parent).parent().show();
 
         //当前菜单加焦点
-        $('#curMenu_{{$siteClass}}').find('a').addClass('curr');
-        $('#curMenu_{{$siteClass}}').find('a > i').addClass('fa fa-circle-o');
+        $('#curMenu_<?php echo e($siteClass); ?>').find('a').addClass('curr');
+        $('#curMenu_<?php echo e($siteClass); ?>').find('a > i').addClass('fa fa-circle-o');
 
         //显示所有同级菜单
         $('#SubMenu_' + second_parent).find('.sub_menu').show();
 
         //顶级菜单显示
         $('#top_nav').find('li').removeClass('active');
-        var topParent = $('#curMenu_{{$siteClass}}').attr('top_parent');
+        var topParent = $('#curMenu_<?php echo e($siteClass); ?>').attr('top_parent');
         $('#topMenu_' + topParent).addClass('active');
     })
 
@@ -183,8 +185,8 @@
     }
 
 </script>
-@include('layouts.admin.errors')
-@include('layouts.admin.ajaxupload')
+<?php echo $__env->make('layouts.admin.errors', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('layouts.admin.ajaxupload', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 </body>
 </html>
