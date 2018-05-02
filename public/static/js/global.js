@@ -119,6 +119,8 @@ function ajax(url, data, callback, dataType, needrsa) {
             }
         },
         error: function () {
+            layer.close(index);
+
             layer.msg('请求出错， 请检查');
         }
     });

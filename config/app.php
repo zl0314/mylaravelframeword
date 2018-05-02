@@ -183,6 +183,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         App\Providers\AjaxResponseServiceProvider::class,
+        Jq\BatchUpload\JqBatchUploadServiceProvider::class,
     ],
 
     /*

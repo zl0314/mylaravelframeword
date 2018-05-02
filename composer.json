@@ -30,8 +30,8 @@
     ],
     "psr-4": {
       "App\\": "app/",
-      "Zlong\\Laratest\\":"packges/zlong/Laratest/src/"
-
+      "Zlong\\Laratest\\":"packges/zlong/Laratest/src/",
+      "Jq\\BatchUpload\\":"packges/Jq/BatchUpload/src/"
     },
     "files": [
       "helper/common_helper.php"
