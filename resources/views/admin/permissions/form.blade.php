@@ -48,32 +48,7 @@
                    name="sort">
         </div>
 
-        @include('BatchUpload::header')
-        <div class="box" id="box">
-        </div>
-        <script type="text/javascript">
-            var imgFile = new ImgUploadeFiles('#box', function (e) {
-                this.init({
-                    MAX: 1, //限制个数
-                    inputName: 'pics',
-                    MH: 800, //像素限制高度
-                    MW: 300, //像素限制宽度
-                    allowSize : '{{intval(ini_get('upload_max_filesize'))*1024*1024}}',
-                    callback: function (dom) {
-                        $.post('/jq-batch-upload/upload', {src: this.imgSrc}, function (res) {
-                            $(dom).attr('realsrc', res.data.src);
-                            $(dom).find('input').val(res.data.src);
-                        }, 'json');
-                    },
-                    remove: function (id) {
-                        var realsrc = $('#batch_upload_' + id).attr('realsrc');
-                        $.post('/jq-batch-upload/delete', {src: realsrc}, function (res) {
 
-                        }, 'json');
-                    }
-                });
-            });
-        </script>
         <button type="submit" class="btn btn-primary">{{!empty($model->id) ? '修 改' :'保 存'}} </button>
     </form>
 </div></div>

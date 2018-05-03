@@ -1,0 +1,35 @@
+http://www.jq22.com/yanshi18454
+<div class="form-group">
+    <label for="">轮播图</label>
+    <div class="box" id="box"> </div>
+</div>
+
+@include('BatchUpload::header')
+
+<script type="text/javascript">
+var imgFile = new ImgUploadeFiles('#box', function (e) {
+this.init({
+    MAX: 1, //限制个数
+    inputName: 'pics',
+    MH: 800, //像素限制高度
+    MW: 300, //像素限制宽度
+    allowSize : '{{intval(ini_get('upload_max_filesize'))*1024*1024}}',
+    callback: function (dom) {
+        $.post('/jq-batch-upload/upload', {src: this.imgSrc}, function (res) {
+            if(res.success == 1){
+                $(dom).attr('realsrc', res.data.src);
+                $(dom).find('input').val(res.data.src);
+            }else{
+                alert(res.message);
+            }
+        }, 'json');
+    },
+    remove: function (id) {
+        var realsrc = $('#batch_upload_' + id).attr('realsrc');
+        $.post('/jq-batch-upload/delete', {src: realsrc}, function (res) {
+
+        }, 'json');
+    }
+});
+});
+</script>

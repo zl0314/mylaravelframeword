@@ -23,6 +23,5 @@
       "Jq\\BatchUpload\\": "src/"
     }
   },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+  "minimum-stability": "stable"
 }
