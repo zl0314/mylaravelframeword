@@ -42,9 +42,19 @@ class UploadController
             $new_file = $format . config( 'jq-batch-upload.fileName' ) . ".{$type}";
             creat_dir_with_filepath( public_path() . $new_file );
             if ( file_put_contents( public_path() . $new_file, base64_decode( str_replace( $result[1], '', $request->src ) ) ) ) {
-                return \Ajax::success( '上传成功', [ 'src' => $new_file ] );
+                $data = [
+                    'success' => 1,
+                    'src' => $new_file,
+                    'message' => '上传成功'
+                ];
+                return response()->json($data);
             } else {
-                return \Ajax::fail( '上传失败' );
+                $data = [
+                    'success' => 0,
+                    'src' => '',
+                    'message' => '上传失败'
+                ];
+                return response()->json($data);
             }
         }
     }

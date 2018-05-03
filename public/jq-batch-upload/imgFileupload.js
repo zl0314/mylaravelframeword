@@ -2,9 +2,9 @@
     var htmls = '<input type="file" name="" id="" class="imgFiles" style="display: none" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" multiple>' +
         '<div class="header">' +
         '    <span class="imgTitle">' +
-        '        ' +
+        '        精彩图库' +
         '        <b>' +
-        '            ' +
+        '            *' +
         '        </b>' +
         '    </span>' +
         '    <span class="imgClick">' +
@@ -165,35 +165,35 @@
         _self.callback(this.dom);
         // $(this.b).parent().parent().parent().attr('data-dataImgs',JSON.stringify(_dataArr));
         var _delAll = $(this.b).find('.delImg');
-        // for (var i = 0; i < _delAll.length; i++) {
-        //     $(_delAll[i]).off().on('click', function () {
-        //
-        //         var _deid = $(this).parent().attr('data-delId');
-        //         for (var n = 0; n < _dataArr.length; n++) {
-        //             if (_dataArr[n].delId == _deid) {
-        //                 if(confirm('确认要删除吗？')){
-        //                     $(this).parent().fadeOut('slow', function () {
-        //                         $(this).remove();
-        //                     });
-        //                     _self.remove(_deid);
-        //                 }
-        //             }
-        //         }
-        //         /// _self.callback(_dataArr)
-        //         // $(this.b).parent().parent().parent().attr('data-dataImgs',JSON.stringify(_dataArr))
-        //
-        //     });
-        // }
-        // ;
+        for (var i = 0; i < _delAll.length; i++) {
+            $(_delAll[i]).off().on('click', function () {
+
+                var _deid = $(this).parent().attr('data-delId');
+                for (var n = 0; n < _dataArr.length; n++) {
+                    if (_dataArr[n].delId == _deid) {
+                        if(confirm('确认要删除吗？')){
+                            $(this).parent().fadeOut('slow', function () {
+                                $(this).remove();
+                            });
+                            _self.remove(_deid);
+                        }
+                    }
+                }
+                /// _self.callback(_dataArr)
+                // $(this.b).parent().parent().parent().attr('data-dataImgs',JSON.stringify(_dataArr))
+
+            });
+        }
+        ;
         var _Imgpreview = $(this.b).find('.delImg');
         for (var k = 0; k < _Imgpreview.length; k++) {
             $(_Imgpreview[k]).off().on('click', function () {
                 if(confirm('确认要删除吗？')){
                     $(this).parent().fadeOut('slow', function () {
-                        $(this).remove();
+                        //$(this).remove();
                     });
                     var _deid = $(this).parent().attr('data-delid');
-                    _self.remove(_deid);
+                   // _self.remove(_deid);
                 }
             })
         }

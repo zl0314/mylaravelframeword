@@ -167,7 +167,6 @@ return [
 
         Laracasts\Flash\FlashServiceProvider::class,
         Stevenyangecho\UEditor\UEditorServiceProvider::class,
-        Zlong\Laratest\LaratestServiceProvider::class,
 
         /*
          * Package Service Providers...
