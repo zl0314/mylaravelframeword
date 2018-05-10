@@ -29,7 +29,7 @@ class AdminUsersRequest extends CommonRequest
         } else {
             $rule = [
                 'password'              => 'required|min:6',
-                'password_confirmation' => 'required_with:password|min:6',
+                'password_confirmation' => 'required_with:password|required|min:6',
                 'username'              => 'unique:admin_users,username',
             ];
         }
@@ -55,6 +55,7 @@ class AdminUsersRequest extends CommonRequest
             'password.required'              => '密码不能为空',
             'password.confirmed'             => '两次密码不一样',
             'password_confirmation.required' => '确认密码不能为空',
+            'password_confirmation.min'      => '确认密码长度不能不能小于6位',
             'profile.realname.required'      => '真实姓名不能为空',
         ];
     }

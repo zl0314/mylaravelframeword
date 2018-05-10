@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MyModel extends Model
 {
-
+    
     protected $guarded = [];
 
     public static function getWhere ( $model )
