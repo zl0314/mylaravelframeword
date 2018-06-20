@@ -137,7 +137,8 @@ class Permissions extends MyModel
         if ( !$admin->is_super ) {
             return app( 'Zcache' )->remember( 'permisstions_' . $admin->id, function () use ( $admin ) {
 
-                $roles = $admin->roles()->with( [ 'permissions' ] )->get();
+                $roles = $admin->roles()->with( [ 'permissions' ] )
+                    ->get();
                 $permissions = [];
                 foreach ( $roles as $r ) {
                     foreach ( $r->permissions()->get()->toArray() as $permission ) {

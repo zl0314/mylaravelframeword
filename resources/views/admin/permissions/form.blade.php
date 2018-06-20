@@ -42,6 +42,14 @@
         </div>
 
         <div class="form-group">
+            <label for="">是否初始化增删改权限节点</label>
+            <select name="init_curd" id="" class="form-control">
+                <option value="1" @if(!empty($model->init_curd) && $model->init_curd == 1) selected @endif>是</option>
+                <option value="0" @if( (isset($model->init_curd) && $model->init_curd == 0 ) || empty($model)) selected @endif >否</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="">排序</label>
             <input type="text" class="form-control" placeholder=""
                    value="{{$model->sort??old('sort')??1}}"

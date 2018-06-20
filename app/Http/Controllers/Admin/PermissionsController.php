@@ -27,6 +27,35 @@ class PermissionsController extends BackController
         return $post;
     }
 
+    public function saveCallback ( $model )
+    {
+        if ( !empty( $model->init_curd ) && $model->is_menu == 1 ) {
+            $permission_arr = explode( '.', $model->name );
+            $classs = !empty( $permission_arr[0] ) ? $permission_arr[0] : '';
+            if ( !empty( $classs ) ) {
+                $arr = [
+                    $classs . '.create'        => '新增表单页面',
+                    $classs . '.store'         => '设置保存',
+                    $classs . '.edit'          => '编辑页面',
+                    $classs . '.update'        => '编辑保存',
+                    $classs . '.destroy'       => '删除',
+                    $classs . '.batch_destroy' => '批量删除',
+                ];
+            }
+            foreach ( $arr as $k => $r ) {
+                $saveData = [
+                    'name'         => $k,
+                    'display_name' => $r,
+                    'fid'          => $model->id,
+                    'is_menu'      => 0,
+                    'sort'         => 0,
+                    'init_curd'    => 0,
+                ];
+                Permissions::updateOrcreate( [ 'name' => $k, 'fid' => $model->id ], $saveData );
+            }
+        }
+    }
+
     public function getSubMenus ()
     {
         $id = request()->get( 'id' );

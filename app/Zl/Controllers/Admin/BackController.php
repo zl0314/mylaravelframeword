@@ -238,7 +238,7 @@ class BackController extends CommonController
      */
     protected function deleteCache ()
     {
-        return true;
+        app('Zcache')->clearAllCache();
     }
 
     /**
