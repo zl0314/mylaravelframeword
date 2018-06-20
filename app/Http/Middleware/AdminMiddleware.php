@@ -37,7 +37,7 @@ class AdminMiddleware
         $curRouteName = Route::currentRouteName();
         $previousUrl = URL::previous();
 
-        if ( in_array( $curRouteName, [ 'home.quit' ] ) ) {
+        if ( in_array( $curRouteName, [ 'home.quite' ] ) ) {
             return $next( $request );
         } else {
             if ( strpos( $curRouteName, 'public' ) !== false ) {

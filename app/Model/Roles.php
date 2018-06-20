@@ -14,6 +14,6 @@ class Roles extends MyModel
 
     public function permissions ()
     {
-        return $this->belongsToMany( 'App\Model\Permissions', 'permission_role', 'role_id', 'permission_id' );
+        return $this->belongsToMany( 'App\Model\Permissions', 'permission_role', 'role_id', 'permission_id' )->orderBy( 'sort', 'desc' );
     }
 }
