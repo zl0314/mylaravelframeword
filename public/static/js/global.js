@@ -21,6 +21,15 @@ function layer_tip_mini(msg, fun) {
     }
 }
 
+function alert_mini(msg, fun) {
+    layer.msg(msg);
+    if (typeof(fun) == 'function') {
+        setTimeout(function () {
+            fun();
+        }, 1000);
+    }
+}
+
 var alert = function () {
     content = '';
     if (arguments[0]) {
@@ -59,6 +68,14 @@ Array.prototype.del = function (index) {
 
 var ping = 0;
 
+/**
+ *  ajax请求, 对有些请求 要求安全性的时候， 进行加密
+ * @param url   请求URL
+ * @param data  参数
+ * @param callback  回调函数
+ * @param dataType  响应类型
+ * @param needrsa   是否进行加密
+ */
 function ajax(url, data, callback, dataType, needrsa) {
 
     var dataType = typeof(dataType) == 'undefined' ? 'json' : dataType;
@@ -88,18 +105,6 @@ function ajax(url, data, callback, dataType, needrsa) {
             }
         }
     }
-    /*
-    $.post(url, sendData, function (res) {
-        layer.close(index);
-        ping = 0;
-        //回调函数
-        if (typeof(callback) == 'function') {
-            setTimeout(function () {
-                callback(res);
-            }, 1000);
-        }
-    }, dataType);
-    */
 
     $.ajax({
         type: "POST",
@@ -123,5 +128,36 @@ function ajax(url, data, callback, dataType, needrsa) {
 
             layer.msg('请求出错， 请检查');
         }
+    });
+}
+
+
+/**
+ * LAYUI 打开IFRAME
+ * @param url 地址
+ * @param params 其它参数， 格式：a=1&b=2
+ * @param w 宽
+ * @param h 高
+ */
+function iframe(url, params, w, h) {
+    var w = typeof(w) == 'undefined' ? 1100 : w;
+    var h = typeof(h) == 'undefined' ? 660 : h;
+    var params = typeof(params) == 'undefined' ? '' : params;
+
+    if (typeof(url) == 'undefined') {
+        console.log('URL不能为空');
+        return;
+    }
+    var url = url.indexOf('?') > 0 ? url + '&inframe=1' : url;
+    url += '&' + params;
+
+    window.layer.index = layer.open({
+        type: 2,
+        title: false,
+        area: [w + 'px', h + 'px'],
+        shade: 0.7,
+        closeBtn: 1,
+        shadeClose: true,
+        content: url
     });
 }
