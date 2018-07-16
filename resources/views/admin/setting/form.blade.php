@@ -14,8 +14,21 @@
         </div>
 
         <div class="form-group">
-            <label for="">值 </label>
-            <textarea name="value" cols="30" rows="10" class="form-control">{{$model->value??old('value')}}</textarea>
+            <label for="">类型</label>
+            <select id="type" name="type" class="form-control" onchange="changeType(this)">
+                <option value="0">请选择</option>
+                @foreach(\App\Model\Setting::getValueType() as $k => $r)
+                    <option value="{{$k}}" @if(!empty($model->type) && $model->type == $k)) selected @endif >{{$r}}</option>
+                    @endforeach
+            </select>
+        </div>
+
+        <div class="form-group">
+            <div id="type_target">
+            </div>
+            <div id="type_ueditor">
+                <script type="text/plain" style="width:100%;height:400px;" id="value_content" name="value">{!! $model->value??old('value') !!}</script>
+            </div>
         </div>
 
         <button type="submit" class="btn btn-primary">
@@ -23,3 +36,42 @@
         </button>
     </form>
 </div></div>
+
+
+@include('UEditor::head')
+<script>
+    @if(!empty($model->id))
+    changeType('{{$model->type}}');
+
+    @endif
+    function changeType(obj) {
+        type = typeof(obj) == 'string' ? obj : obj.value;
+        var html = '<label for="">值 </label>';
+        if (type == 1) {
+            html += '<textarea name="value" cols="30" rows="10"class="form-control">{{$model->value??old('value')}}</textarea>';
+        } else if (type == 2) {
+            html += '<input id="value" type="hidden" name="value" value="" class="input-txt"/>' +
+                '            <input type="button" class="ajaxUploadBtn btn-primary btn" id="value_button"' +
+                '                   onclick="ajaxUpload(\'value\',\'setting\')"' +
+                '                   value="上传图片">' +
+                '            <br><img  alt="" id="value_pic" style="width:auto;min-width:100px;" src="{{$model->value??old('value')}}">';
+        } else if (type == 3) {
+            $('#type_target').html('');
+            $('#type_ueditor').show();
+            var ue = UE.getEditor('value_content');
+            ue.ready(function () {
+                ue.execCommand('serverparam', '_token', '{{csrf_token()}}');//此处为支持laravel5 csrf ,根据实际情况修改,目的就是设置 _token 值.
+            });
+
+            return;
+        }
+        $('#type_target').html(html);
+        $('#type_ueditor').hide();
+        if (type == 2) {
+            $(".ajaxUploadBtn").trigger('click');
+        }
+
+
+    }
+</script>
+@include('layouts.admin.ajaxupload')
