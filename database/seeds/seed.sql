@@ -219,8 +219,12 @@ CREATE TABLE IF NOT EXISTS  `settings` (
   KEY `settings_key_index` (`key`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+ALTER TABLE `settings`
+ADD COLUMN `type`  tinyint(1) UNSIGNED NOT NULL DEFAULT 1  AFTER `value`;
+
+
 -- ----------------------------
 -- Records of settings
 -- ----------------------------
-INSERT INTO `settings` VALUES ('3', '网站标题', 'sitetitle', 'LARAFRM');
-INSERT INTO `settings` VALUES ('4', '站点描述', 'description', '描述');
+INSERT INTO `settings` VALUES ('3', '网站标题', 'sitetitle', 'LARAFRM',1);
+INSERT INTO `settings` VALUES ('4', '站点描述', 'description', '描述',1);

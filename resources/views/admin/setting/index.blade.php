@@ -8,6 +8,7 @@
                 <th>ID</th>
                 <th>说明</th>
                 <th>关键字</th>
+                <th>类别</th>
                 <th>值</th>
                 <th>操作</th>
             </tr>
@@ -21,7 +22,17 @@
                         <td>{{$item->id}}</td>
                         <td>{{$item->intro}}</td>
                         <td>{{$item->key}}</td>
-                        <td>{{$item->value}}</td>
+                        <td>{{\App\Model\Setting::getValueType()[$item->type]}}</td>
+                        <td>
+                            @if($item->type == 3)
+                                <div id="iframe_customize_html" style="display:none;">
+                                    {!! $item->value !!}
+                                </div>
+                                <a href="javascript:iframe_customize_html();">内容可能过多，点击查看</a>
+                            @else
+                                {!! $item->value !!}
+                            @endif
+                        </td>
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-default"
