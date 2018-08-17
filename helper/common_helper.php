@@ -305,8 +305,6 @@ function get_add_http_url ( $url = '' )
 }
 
 
-
-
 /**
  * 得到URL对应的控制器， 用RSA加密
  * @return mixed
@@ -326,4 +324,34 @@ function getUrlController ()
 function getUrlModel ()
 {
     return app( 'rsa' )->publicDecrypt( request()->route()->getController()->model );
+}
+
+/**
+ * 获取分页HTML
+ *
+ * @param 对应模型
+ *
+ * @return data Obj
+ */
+function getDataPaginate ( $data )
+{
+    $params = getPaginateParams();
+
+    return $data->appends( $params )->links();
+
+}
+
+/**
+ * 分页时，URL中的参数添加到分页参数里
+ * @return array
+ */
+function getPaginateParams ()
+{
+    $params = [];
+    $gets = request()->all();
+    foreach ( $gets as $k => $r ) {
+        $params[ $k ] = request()->get( $k );
+    }
+
+    return $params;
 }

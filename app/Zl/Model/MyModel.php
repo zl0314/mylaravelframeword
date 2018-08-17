@@ -11,10 +11,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class MyModel extends Model
 {
-    
+
     protected $guarded = [];
 
     public static function getWhere ( $model )
+    {
+        return $model;
+    }
+
+    public static function getWhereRaw ( $model )
     {
         return $model;
     }

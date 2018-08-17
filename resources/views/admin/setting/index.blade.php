@@ -60,7 +60,7 @@
                         class="fa fa-trash-o "> 批量删除</span></div>
         @endif
         <ul class="pagination" style="float:right; margin-top:0px;">
-            {!! $data->links() !!}
+            {!! getDataPaginate($data) !!}
         </ul>
     </div>
 @endsection
