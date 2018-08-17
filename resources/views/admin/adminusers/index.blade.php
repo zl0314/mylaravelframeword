@@ -1,6 +1,5 @@
 @extends('layouts.admin.master')
 @section('content')
-    {{Cookie::get('name')}}
     <div class="panel-body">
         <table class="table table-hover">
             <thead>
