@@ -19,6 +19,12 @@ class BackController extends CommonController
     //参数， 如：project_id=1
     public $params = null;
 
+    //每页显示数量
+    public $pageNum = 10;
+
+    //排序字段
+    public $orderField = 'id desc';
+
     public function __construct ()
     {
         parent::__construct();
@@ -57,15 +63,16 @@ class BackController extends CommonController
 
     }
 
-
     /**
      * Display a listing of the resource.
      * @return \Illuminate\Http\Response
      */
     public function index ()
     {
-        $data = $this->model::getWhere( $this->getModel() )
-            ->orderBy( 'id', 'desc' )->paginate( 10 );
+        $model = $this->getModel();
+        $data = $this->model::getWhere( $model )
+            ->getWhereRaw( $model )
+            ->orderByRaw( $this->orderField )->paginate( $this->pageNum );
 
         return $this->display( [ 'data' => $data ] );
     }
@@ -237,7 +244,7 @@ class BackController extends CommonController
      */
     protected function deleteCache ()
     {
-        app('Zcache')->clearAllCache();
+        app( 'Zcache' )->clearAllCache();
     }
 
     /**
