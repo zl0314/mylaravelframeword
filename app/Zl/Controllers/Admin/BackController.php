@@ -2,7 +2,6 @@
 
 namespace App\Zl\Controllers\Admin;
 
-use App\Model\Channels;
 use App\Zl\Controllers\CommonController;
 use Mockery\Exception;
 use Illuminate\Http\Request;

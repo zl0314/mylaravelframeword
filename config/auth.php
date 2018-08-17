@@ -82,20 +82,8 @@ return [
         ],
         'admins' => [
             'driver' => 'eloquent',
-            'model'  => \App\Model\Admins::class,
+            'model'  => \App\Model\Admin\Admins::class,
         ],
-        //'channels' => [
-        //    'driver' => 'eloquent',
-        //    'model'  => \App\Model\Channels::class,
-        //],
-        //'agents'   => [
-        //    'driver' => 'eloquent',
-        //    'model'  => \App\Model\Agents::class,
-        //],
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

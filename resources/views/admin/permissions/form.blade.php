@@ -8,7 +8,7 @@
             <label for="">所属菜单</label>
             <select name="fid" id="" class="form-control">
                 <option value="0">无</option>
-                @foreach(\App\Model\Permissions::treePermisstionsByLevel() as $k =>$r))
+                @foreach(\App\Model\Admin\Permissions::treePermisstionsByLevel() as $k =>$r))
                 <option @if(!empty($model) && $model->fid == $r['id']) selected
                         @endif value="{{$r['id']}}">@if($r['fid'] != 0) {{str_repeat('&nbsp;', $r['level'] * 2)}}
                     |_ @endif {{$r['display_name']}}</option>

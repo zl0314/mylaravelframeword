@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Model\Permissions;
+use App\Model\Admin\Permissions;
 use Closure;
 
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +35,9 @@ class AdminMiddleware
             return $next( $request );
         }
         $curRouteName = Route::currentRouteName();
+        if ( strpos( $curRouteName, '{model}' ) !== false ) {
+            $curRouteName = str_replace( '{model}', request()->route( 'model' ), $curRouteName );
+        }
         $previousUrl = URL::previous();
 
         if ( in_array( $curRouteName, [ 'home.quite' ] ) ) {

@@ -303,3 +303,27 @@ function get_add_http_url ( $url = '' )
         return 'javascript:;';
     }
 }
+
+
+
+
+/**
+ * 得到URL对应的控制器， 用RSA加密
+ * @return mixed
+ */
+function getUrlController ()
+{
+    $controller = request()->route()->getActionName();
+    $controller = substr( $controller, 0, strpos( $controller, '@' ) );
+
+    return app( 'rsa' )->publicDecrypt( $controller );
+}
+
+/**
+ * 得到URL对应的模型， 用RSA加密
+ * @return mixed
+ */
+function getUrlModel ()
+{
+    return app( 'rsa' )->publicDecrypt( request()->route()->getController()->model );
+}

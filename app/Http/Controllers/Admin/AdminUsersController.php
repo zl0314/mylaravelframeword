@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\AdminUsersRequest;
-use App\Model\AdminProfile;
-use App\Model\AdminUsers;
+use App\Model\Admin\AdminProfile;
+use App\Model\Admin\AdminUsers;
 use App\Zl\Controllers\Admin\BackController;
 use Illuminate\Http\Request;
 

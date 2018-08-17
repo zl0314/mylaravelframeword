@@ -20,7 +20,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot ()
     {
 
-        Schema::defaultStringLength( 191 );
+        //Schema::defaultStringLength( 191 );
 
         //登录，修改密码等敏感信息， 用RSA加密
         $this->app->singleton( 'rsa', function () {

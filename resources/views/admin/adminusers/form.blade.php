@@ -28,7 +28,7 @@
         <div class="form-group">
             <label for="">角色选择</label>
             <div class="checkbox">
-                @foreach(\App\Model\Roles::all() as $r)
+                @foreach(\App\Model\Admin\Roles::all() as $r)
                     <label>
                         <input type="checkbox"
                                @if(!empty($model->id) && in_array($r->id, array_column($model->roles()->get()->toArray(), 'id') )  ) checked

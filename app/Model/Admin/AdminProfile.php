@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\Admin;
 
 use App\Zl\Model\MyModel;
 use App\Model\AdminUserRole;

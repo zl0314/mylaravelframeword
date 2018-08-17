@@ -10,22 +10,29 @@ class BatchController extends BackController
 {
     public function delete ( $model )
     {
-        $ids = request()->post( 'ids' );
-        $permission = array_column( Permissions::getALLMenus(), 'name' );
-        if ( !in_array( $model . '.batch_destroy', $permission ) ) {
-            return \Ajax::fail( '对不起，您没有权限执行此操作' );
-        } else {
-            if ( !empty( $ids ) ) {
-                $model = '\App\Model\\' . ucfirst( $model );
-                $obj = new $model;
-                foreach ( $ids as $k => $r ) {
-                    $obj->where( [ 'id' => $r ] )->delete();
-                }
 
-                return \Ajax::success( '删除成功' );
-            } else {
-                return \Ajax::fail( '参数错误' );
+        $ids = request()->post( 'ids' );
+
+        if ( !empty( $ids ) ) {
+            $model = app( 'rsa' )->privateDecrypt( request()->post( 'm' ) );
+            $obj = new $model;
+
+            foreach ( $ids as $k => $r ) {
+                $result_model = $obj->findOrFail( $r );
+                $obj->where( [ 'id' => $r ] )->delete();
+                $contoller = app( 'rsa' )->privateDecrypt( request()->post( 'c' ) );
+                $contoller_inst = new $contoller;
+                if ( method_exists( $contoller_inst, 'deleteCallback' ) ) {
+                    $contoller_inst->deleteCallback( $result_model );
+                }
             }
+            app( 'Zcache' )->clearAllCache();
+            cache()->flush();
+
+
+            return \Ajax::success( '删除成功' );
+        } else {
+            return \Ajax::fail( '参数错误' );
         }
 
     }

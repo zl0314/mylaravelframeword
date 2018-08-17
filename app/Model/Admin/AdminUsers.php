@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\Admin;
 
 use App\Zl\Model\MyModel;
 
@@ -8,7 +8,7 @@ class AdminUsers extends MyModel
 {
     public function profile ()
     {
-        return $this->hasOne( 'App\Model\AdminProfile' );
+        return $this->hasOne( 'App\Model\Admin\AdminProfile' );
     }
 
     //自动设置密码字段
@@ -21,6 +21,6 @@ class AdminUsers extends MyModel
 
     public function roles ()
     {
-        return $this->belongsToMany( 'App\Model\Roles','admin_user_role','admin_user_id','role_id' );
+        return $this->belongsToMany( 'App\Model\Admin\Roles','admin_user_role','admin_user_id','role_id' );
     }
 }

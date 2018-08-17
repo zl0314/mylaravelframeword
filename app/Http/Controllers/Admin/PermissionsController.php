@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\PermissionsRequest;
-use App\Model\Permissions;
+use App\Model\Admin\Permissions;
 use App\Zl\Controllers\Admin\BackController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

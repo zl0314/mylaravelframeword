@@ -3,7 +3,7 @@
 
     <form action="/admin/roles/permission/{{$role->id}}" method="post">
         {{csrf_field()}}
-        @foreach(\App\Model\Permissions::treePermisstionsBySubMenus() as $k=>$r)
+        @foreach(\App\Model\Admin\Permissions::treePermisstionsBySubMenus() as $k=>$r)
             <div class="panel panel-primary" id="top_menu{{$r['id']}}">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -66,7 +66,7 @@
 
                                                     <td>
                                                         <div class="checkbox">
-                                                            @foreach(\App\Model\Permissions::where(['fid' => $submenu_2['id']])->get() as $submenu_3)
+                                                            @foreach(\App\Model\Admin\Permissions::where(['fid' => $submenu_2['id']])->get() as $submenu_3)
                                                                 <label for="menu{{$submenu_3->id}}">
                                                                     <input parent="{{$submenu_3->fid}}"
                                                                            @if(!empty($role->id) && in_array($submenu_3->id, array_column($role->permissions()->get()->toArray(), 'id') )  ) checked

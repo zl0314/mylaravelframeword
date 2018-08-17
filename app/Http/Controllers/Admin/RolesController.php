@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\RolesRequest;
-use App\Model\Roles;
+use App\Model\Admin\Roles;
 use App\Zl\Controllers\Admin\BackController;
 use Illuminate\Http\Request;
 

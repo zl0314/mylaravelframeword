@@ -64,7 +64,7 @@
                     url: '{{url('/admin/batchDel')}}/{{$siteClass}}',
                     method: 'POST',
                     dataType: 'json',
-                    data: {ids: ids},
+                    data: {ids: ids, c: '{{getUrlController()}}', m: '{{getUrlModel()}}'},
                     success: function (res) {
                         layer.msg(res.message, {icon: 1}, function () {
                             if (res.success == 1) {

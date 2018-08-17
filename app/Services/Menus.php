@@ -8,7 +8,7 @@
 namespace App\Services;
 
 
-use App\Model\Permissions;
+use App\Model\Admin\Permissions;
 use Illuminate\Support\Facades\Route;
 
 class Menus

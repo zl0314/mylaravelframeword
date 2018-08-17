@@ -14,6 +14,10 @@ class CaptchaController extends Controller
     public function code ( $random )
     {
         $builder = new CaptchaBuilder();
+        $builder->setMaxAngle(0);
+        $builder->setMaxBehindLines(0);
+        $builder->setMaxFrontLines(0);
+        $builder->setMaxOffset(0);
         $builder->build( 150, 32 );
         $phrase = $builder->getPhrase();
         session( [ 'captcha' => $phrase ] ); //存储验证码

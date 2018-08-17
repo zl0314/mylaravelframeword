@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\AdminPost;
 use App\Http\Requests\AdminProfile as AdminProfilePost;
-use App\Model\AdminProfile;
+use App\Model\Admin\AdminProfile;
 use App\Http\Controllers\Controller;
 use App\Zl\Controllers\Admin\BackController;
 use Illuminate\Support\Facades\Auth;
