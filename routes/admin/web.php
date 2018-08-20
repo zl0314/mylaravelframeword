@@ -40,6 +40,7 @@ Route::group( [ 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'ad
 
     //批量删除
     Route::post( 'batchDel/{model}', 'BatchController@delete' )->name('{model}.batch_destroy');
+
 } );
 
 
