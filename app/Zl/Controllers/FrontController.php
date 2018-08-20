@@ -2,7 +2,6 @@
 
 namespace App\Zl\Controllers;
 
-use App\Model\Setting;
 use App\Zl\Controllers\CommonController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
@@ -30,14 +29,9 @@ class FrontController extends CommonController
         $this->siteClass = $siteClass;
         $this->id = $id;
 
-        $webset = cache()->remember( 'setting', config( 'cache.expire' ), function () {
-            $setting = Setting::where( [] )->get();
-        } );
-
         $vars = [
             'siteMethod' => $siteMethod,
             'siteClass'  => $siteClass,
-            'webSet' => $webset
         ];
 
         $this->assign( $vars );

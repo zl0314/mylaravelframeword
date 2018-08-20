@@ -1,5 +1,6 @@
 @extends('layouts.admin.master')
 @section('content')
+
     <div class="panel-body">
         <table class="table table-hover">
             <thead>

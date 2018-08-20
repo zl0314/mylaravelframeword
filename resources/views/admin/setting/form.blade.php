@@ -17,7 +17,7 @@
             <label for="">类型</label>
             <select id="type" name="type" class="form-control" onchange="changeType(this)">
                 <option value="0">请选择</option>
-                @foreach(\App\Model\Setting::getValueType() as $k => $r)
+                @foreach(\App\Model\Admin\Setting::getValueType() as $k => $r)
                     <option value="{{$k}}" @if(!empty($model->type) && $model->type == $k)) selected @endif >{{$r}}</option>
                     @endforeach
             </select>
@@ -46,7 +46,7 @@
     @endif
     function changeType(obj) {
         type = typeof(obj) == 'string' ? obj : obj.value;
-        var html = '<label for="">值 </label>';
+        var html = '<label for="">内容 </label>';
         if (type == 1) {
             html += '<textarea name="value" cols="30" rows="10"class="form-control">{{$model->value??old('value')}}</textarea>';
         } else if (type == 2) {

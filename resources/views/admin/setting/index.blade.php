@@ -22,7 +22,7 @@
                         <td>{{$item->id}}</td>
                         <td>{{$item->intro}}</td>
                         <td>{{$item->key}}</td>
-                        <td>{{\App\Model\Setting::getValueType()[$item->type]}}</td>
+                        <td>{{\App\Model\Admin\Setting::getValueType()[$item->type]}}</td>
                         <td>
                             @if($item->type == 3)
                                 <div id="iframe_customize_html" style="display:none;">

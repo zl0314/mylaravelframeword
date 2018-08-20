@@ -70,8 +70,7 @@ class BackController extends CommonController
     public function index ()
     {
         $model = $this->getModel();
-        $data = $this->model::getWhere( $model )
-            ->getWhereRaw( $model )
+        $data = $model::getWhere( $model )
             ->orderByRaw( $this->orderField )->paginate( $this->pageNum );
 
         return $this->display( [ 'data' => $data ] );

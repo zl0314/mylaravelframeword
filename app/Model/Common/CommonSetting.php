@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Model;
+namespace App\Model\Common;
 
 use App\Zl\Model\MyModel;
 use Illuminate\Database\Eloquent\Model;
 
-class Setting extends MyModel
+class CommonSetting extends MyModel
 {
 
     public $timestamps = false;
 
-    public static  function getValueType ()
+    public static function getValueType ()
     {
         return [
             '1' => '文本框',
