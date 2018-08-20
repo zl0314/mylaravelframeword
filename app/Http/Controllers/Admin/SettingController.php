@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\SettingRequest;
-use App\Model\Setting;
+use App\Model\Admin\Setting;
 use App\Zl\Controllers\Admin\BackController;
 use Illuminate\Http\Request;
 

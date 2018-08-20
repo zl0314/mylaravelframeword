@@ -355,3 +355,28 @@ function getPaginateParams ()
 
     return $params;
 }
+
+/**
+ * @return \Illuminate\Foundation\Application|mixed
+ * 获取缓存实例 App\Providers中注册的Zcache
+ */
+function zcache ()
+{
+    return app( 'Zcache' );
+}
+
+/**
+ * @param      $key  键
+ *
+ * @return mixed
+ */
+function getWebSet ( $key )
+{
+    $res = zcache()->remember( $key, function () use ( $key ) {
+        $set = Setting::where( [ 'key' => $key ] )->first();
+
+        return $set->value ?? '';
+    }, 'setting' );
+
+    return $res ?? '';
+}

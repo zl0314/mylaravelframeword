@@ -15,12 +15,12 @@ use Illuminate\Support\ServiceProvider;
 
 class ComposerServiceProvider extends ServiceProvider
 {
-    public function boot()
+    public function boot ()
     {
-        View::composer('web/index/index', 'App\Http\ViewComposers\IndexComposer');
+        View::composer( 'widgets.test', 'App\Http\ViewComposers\IndexComposer' );
     }
 
-    public function register()
+    public function register ()
     {
 
     }

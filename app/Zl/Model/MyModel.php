@@ -19,11 +19,6 @@ class MyModel extends Model
         return $model;
     }
 
-    public static function getWhereRaw ( $model )
-    {
-        return $model;
-    }
-
     //保存时给内容转义
     public function setContentAttribute ( $val )
     {
