@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 
-use App\Model\Admin\Admins;
+use App\Model\Admins;
 use App\Zl\Controllers\Admin\BackController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

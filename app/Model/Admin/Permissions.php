@@ -135,7 +135,7 @@ class Permissions extends MyModel
         //查询管理员所在的角色， 获取所拥有角色的所有权限
         $admin = AdminUsers::findOrFail( Auth::guard( 'admin' )->user()->id );
         if ( !$admin->is_super ) {
-            return app( 'Zcache' )->remember( 'permisstions_' . $admin->id, function () use ( $admin ) {
+            return zcache()->remember( 'permisstions_' . $admin->id, function () use ( $admin ) {
 
                 $roles = $admin->roles()->with( [ 'permissions' ] )
                     ->get();
@@ -149,7 +149,7 @@ class Permissions extends MyModel
                 return $permissions;
             } );
         } else {
-            return app( 'Zcache' )->remember( 'permisstions' . $admin->id, function () {
+            return zcache()->remember( 'permisstions' . $admin->id, function () {
                 $lists = Permissions::where( [ 'is_menu' => 1 ] )
                     ->orderBy( 'sort', 'desc' )
                     ->orderBy( 'id', 'desc' )
