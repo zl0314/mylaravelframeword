@@ -37,9 +37,11 @@ Route::group( [ 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'ad
 
     //系统设置
     Route::resource( 'setting', 'SettingController' );
+    //轮播图
+    Route::resource( 'banners', 'BannersController' );
 
     //批量删除
-    Route::post( 'batchDel/{model}', 'BatchController@delete' )->name('{model}.batch_destroy');
+    Route::post( 'batchDel/{model}', 'BatchController@delete' )->name( '{model}.batch_destroy' );
 
 } );
 
@@ -47,4 +49,8 @@ Route::group( [ 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'ad
 Route::group( [ 'prefix' => 'admin', 'namespace' => 'Admin' ], function () {
     Route::get( 'login', 'LoginController@index' );
     Route::post( 'login', 'LoginController@dologin' );
+    Route::get( '/', function () {
+        return redirect( '/admin/login' );
+    } );
+
 } );

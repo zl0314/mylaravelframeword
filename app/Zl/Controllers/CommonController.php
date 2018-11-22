@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
+use Psy\Exception\ErrorException;
 
 class CommonController extends Controller
 {
@@ -108,12 +109,11 @@ class CommonController extends Controller
             creat_dir_with_filepath( $template_file );
             //模板内容的内容
             $content = $this->getDefaultContent();
-
-            //if ( is_writable( $template_file ) ) {
-            file_put_contents( $template_file, $content );
-            //} else {
-            //    throw new Exception( '没有权限创建' );
-            //}
+            if ( is_writable( dirname( $template_file ) ) ) {
+                $res = file_put_contents( $template_file, $content );
+            } else {
+                throw new ErrorException( '没有权限创建' );
+            }
 
         }
         //给模板传值

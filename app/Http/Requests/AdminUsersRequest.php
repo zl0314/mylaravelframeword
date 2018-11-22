@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Model\AdminUsers;
 use App\Zl\Requests\CommonRequest;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -10,11 +9,10 @@ use Illuminate\Validation\Rule;
 class AdminUsersRequest extends CommonRequest
 {
 
-
     public function getRule ()
     {
         if ( !empty( $this->route( 'adminuser' ) ) ) {
-            $adminuser = new AdminUsers();
+            $adminuser = new \App\Model\Admin\AdminUsers();
             $adminuser = $adminuser->findOrFail( $this->route( 'adminuser' ) );
         }
         $rule = [];
