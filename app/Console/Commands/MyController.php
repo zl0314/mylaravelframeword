@@ -6,6 +6,8 @@ use Illuminate\Console\Command;
 
 class MyController extends Command
 {
+
+    protected $isAdmin = false;
     /**
      * The name and signature of the console command.
      * 创建自定义的控制器
@@ -18,12 +20,11 @@ class MyController extends Command
     protected $signature = 'make:my_controller {name} {--h=?} {--m=true} {--r=true}';
 
     /**
-     * The console command description.
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'make my diy Controller | Model | Request';
 
-    public $controllerName;
+    protected $controllerName;
 
     /**
      * Create a new command instance.
@@ -42,13 +43,13 @@ class MyController extends Command
     {
         $controllerName = $this->argument( 'name' );
         $isAdmin = false;
-        $here = $this->option( 'h' );
         $isMakeModel = $this->option( 'm' );
         $isMakeRequest = $this->option( 'r' );
         if ( strpos( strtolower( $controllerName ), 'admin' ) !== false ) {
-            $isAdmin = true;
+            $this->isAdmin = true;
+            $controllerName = str_replace( 'Admin/', '', $controllerName );
         }
-        $controllerName = str_replace( 'Admin/', '', $controllerName );
+
         $this->controllerName = ucfirst( $controllerName );
         //写入控制器内容
         $this->setControllerContent();
@@ -61,8 +62,9 @@ class MyController extends Command
             //写入Request
             $this->setRequestContent();
         }
-        echo 'controller ' . $this->controllerName  . ' created success!';
-
+        $echoMsg = 'controller ' . $this->controllerName . ' created success!';
+        $echoMsg .= "\r\n" . 'Router content is : Route::resource(\'' . strtolower( $this->controllerName ) . '\',\'' . $this->controllerName . 'Controller\')';
+        echo $echoMsg;
     }
 
     /**

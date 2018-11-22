@@ -25,7 +25,7 @@
             </h3>
             <br>
             <form method="post" action="#">
-                <a href="{{ route('admin.index') }}" class="btn btn-primary btn-block">首页</a>
+                <a href="{{ route('home.index') }}" class="btn btn-primary btn-block">首页</a>
                 <br>
                 <a href="{{ $previousUrl }}" class="btn btn-default btn-block">点击返回</a>
             </form>

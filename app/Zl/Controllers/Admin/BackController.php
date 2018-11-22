@@ -303,7 +303,10 @@ class BackController extends CommonController
             $form_html .= "\r\n" . '</form>' . "\r\n";
             $form_html .= '</div></div>';
 
-            file_put_contents( $form_blade_file, $form_html );
+            $res = file_put_contents( $form_blade_file, $form_html );
+            if(!$res){
+
+            }
         }
 
         $html = '@include(\'admin.\'.$siteClass.\'.form\')';
