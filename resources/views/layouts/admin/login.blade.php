@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css">
 </head>
-<title>{{env('APP_CN_NAME')}}</title>
+<title>{{config('app.cn_name')}}</title>
 <body  style="background:#F3F3F4;">
 
 @yield('content')

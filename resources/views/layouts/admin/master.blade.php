@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="/static/admin/css/bootstrap.min.css">
     <script src="/static/js/global.js"></script>
 </head>
-<title>{{env('APP_CN_NAME')}}</title>
+<title>{{config('app.cn_name')}}</title>
 <body>
 <script>
     var public_key = "{{config('rsa.rsa_module')}}";
@@ -95,7 +95,7 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="/" target="_blank"
-                   style="width:100%;min-width: 188px; text-align: center;">{{env('APP_CN_NAME')}}</a>
+                   style="width:100%;min-width: 188px; text-align: center;">{{config('app.cn_name')}}</a>
             </div>
             <div>
                 {!!  \App\Services\Menus::getTopMenus() !!}
