@@ -48,13 +48,14 @@
         type = typeof(obj) == 'string' ? obj : obj.value;
         var html = '<label for="">内容 </label>';
         if (type == 1) {
-            html += '<textarea name="value" cols="30" rows="10"class="form-control">{{$model->value??old('value')}}</textarea>';
+            html += '<textarea name="value" cols="30" id="value_text" rows="10"class="form-control">{{str_replace("\r\n",'',$model->value??old('value'))}}</textarea>';
         } else if (type == 2) {
-            html += '<input id="value" type="hidden" name="value" value="" class="input-txt"/>' +
+                html += '<input id="value" type="hidden" name="value" value="@if(!empty($model) &&$model->type == 2 || old('type') == 2){{$model->value??old('value')}}@endif" class="input-txt"/>' +
                 '            <input type="button" class="ajaxUploadBtn btn-primary btn" id="value_button"' +
                 '                   onclick="ajaxUpload(\'value\',\'setting\')"' +
                 '                   value="上传图片">' +
-                '            <br><img  alt="" id="value_pic" style="width:auto;min-width:100px;" src="{{$model->value??old('value')}}">';
+                '            <br><img  alt="" id="value_pic" style="width:auto;min-width:100px;" src="@if(!empty($model) &&$model->type == 2 || old('type') == 2){{$model->value??old('value')}}@endif">';
+
         } else if (type == 3) {
             $('#type_target').html('');
             $('#type_ueditor').show();
