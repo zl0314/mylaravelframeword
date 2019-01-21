@@ -3,7 +3,7 @@
 @section('content')
     <div class="login_box">
         <h1>&nbsp;</h1>
-        <h2>{{env('APP_CN_NAME')}}</h2>
+        <h2>{{config('app.cn_name')}}</h2>
         <div class="form">
             @if(session('msg'))
                 <div class="alert alert-danger">
