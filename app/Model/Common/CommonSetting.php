@@ -13,6 +13,7 @@ class CommonSetting extends MyModel
     public static function getValueType ()
     {
         return [
+			'4' => '短文本',
             '1' => '文本框',
             '2' => '图片',
             '3' => '富文本',
