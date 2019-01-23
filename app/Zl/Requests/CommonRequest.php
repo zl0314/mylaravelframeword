@@ -21,4 +21,18 @@ class CommonRequest extends FormRequest
             return true;
         }
     }
+	
+   public static function getBaseRequestRule()
+    {
+        return [
+            'title' => 'required'
+        ];
+    }
+
+    public static function getBaseRequestRuleMsg()
+    {
+        return [
+            'title.required' => '标题不能为空'
+        ];
+    }
 }

@@ -39,6 +39,8 @@ Route::group( [ 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'ad
     Route::resource( 'setting', 'SettingController' );
     //轮播图
     Route::resource( 'banners', 'BannersController' );
+   //新闻 中心
+    Route::resource( 'news', 'NewsController' );
 
     //批量删除
     Route::post( 'batchDel/{model}', 'BatchController@delete' )->name( '{model}.batch_destroy' );

@@ -1,26 +1,25 @@
 ~(function (win) {
-    var htmls = '<input type="file" name="" id="" class="imgFiles" style="display: none" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" multiple>' +
+   var htmls = '<input type="file" name="" id="" class="imgFiles" style="display: none" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" multiple>' +
         '<div class="header">' +
         '    <span class="imgTitle">' +
-        '        精彩图库' +
+        '        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
         '        <b>' +
-        '            *' +
+        '            ' +
         '        </b>' +
         '    </span>' +
         '    <span class="imgClick">' +
         '    </span>' +
         '    <span class="imgcontent">' +
-        '        请上传' +
+        '        最多可上传' +
         '    </span>' +
         '</div>' +
         '<div class="imgAll">' +
-        '    <ul>' +
+        '    <ul  id="sortable">' +
         '    </ul>' +
         '</div>';
     var ImgUploadeFiles = function (obj, fn) {
         var _this = this;
         this.bom = document.querySelector(obj);
-
         if (fn) fn.call(_this);
         this.ready();
 
@@ -31,8 +30,10 @@
             this.callback = o.callback;
             this.MW = o.MW || 10000;
             this.MH = o.MH || 10000;
-            this.remove = o.remove;
-            this.inputName = o.inputName;
+            this.remove = o.remove || function () {
+            };
+            this.inputName = o.inputName || 'pics';
+            this.imgList = o.imgList || '';
         },
         ready: function () {
             var _self = this;
@@ -44,8 +45,31 @@
             this.fileClick = this.bom.querySelector('.imgClick');
             this.fileBtn(this.fileClick, this.files);
             this.imgcontent = this.bom.querySelector('.imgcontent');
-            this.imgcontent.innerHTML = '请上传<b style="color:red">' + this.MAX + '</b>张' + _self.MW + ' * ' + _self.MH + '像素的图片';
+            this.imgcontent.innerHTML = '最多可上传<b style="color:red">' + this.MAX + '</b>张' + _self.MW + ' * ' + _self.MH + '像素的图片';
+            if (this.imgList) {
+                this.imgList = JSON.parse(this.imgList);
+                this.renderList(_self);
+            }
+        },
+        renderList: function (o) {
+            var html = '';
+            for (i in this.imgList) {
+                html += '<li class="ui-state-default" data-delid="' + i + '" id="batch_upload_' + i + '" realsrc="' + this.imgList[i] + '"> ' +
+                    '<img alt="" src="' + this.imgList[i] + '">' +
+                    '<input type="hidden" name="' + this.inputName + '" value="' + this.imgList[i] + '"><i class="delImg">X </i></li>';
+            }
+            $('.imgAll ul').append(html);
 
+            var _Imgpreview = $('.imgAll ul').find('.delImg');
+            for (var k = 0; k < _Imgpreview.length; k++) {
+                $(_Imgpreview[k]).off().on('click', function () {
+                    if (confirm('确认要删除吗？')) {
+                        var _deid = $(this).parent().attr('data-delid');
+                        o.remove(_deid);
+                        $(this).parent().remove();
+                    }
+                })
+            }
         },
         fileBtn: function (c, f) {
             var _self = this;
@@ -76,7 +100,8 @@
             if (lens >= MAX && files.length > 0) {
                 alert('不能大于' + MAX + '张');
                 return false;
-            };
+            }
+            ;
 
             for (var i = 0, file; file = files[i++];) {
                 var reader = new FileReader();
@@ -134,7 +159,7 @@
         }
     };
 
-    var ImgFileupload = function (b, imgName, imgSrc, imgSize, callback, remove,inputName) {
+    var ImgFileupload = function (b, imgName, imgSrc, imgSize, callback, remove, inputName) {
         this.b = b;
         this.imgName = imgName;
         this.imgSize = imgSize;
@@ -171,7 +196,7 @@
                 var _deid = $(this).parent().attr('data-delId');
                 for (var n = 0; n < _dataArr.length; n++) {
                     if (_dataArr[n].delId == _deid) {
-                        if(confirm('确认要删除吗？')){
+                        if (confirm('确认要删除吗？')) {
                             $(this).parent().fadeOut('slow', function () {
                                 $(this).remove();
                             });
@@ -188,12 +213,10 @@
         var _Imgpreview = $(this.b).find('.delImg');
         for (var k = 0; k < _Imgpreview.length; k++) {
             $(_Imgpreview[k]).off().on('click', function () {
-                if(confirm('确认要删除吗？')){
-                    $(this).parent().fadeOut('slow', function () {
-                        //$(this).remove();
-                    });
+                if (confirm('确认要删除吗？')) {
                     var _deid = $(this).parent().attr('data-delid');
-                   // _self.remove(_deid);
+                    _self.remove(_deid);
+                    $(this).parent().remove();
                 }
             })
         }
