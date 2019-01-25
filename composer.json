@@ -18,7 +18,7 @@
     "laravel/tinker": "~1.0",
     "predis/predis": "^1.1",
     "stevenyangecho/laravel-u-editor": "^1.4",
-    "zl0314/jq-batch-upload": "^1.0"
+    "zl0314/jq-batch-upload": "^1.2"
   },
   "require-dev": {
     "filp/whoops": "~2.0",

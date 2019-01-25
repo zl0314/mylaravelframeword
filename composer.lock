@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "33d8ca762e37553228fa2ddeecbe08a7",
+    "content-hash": "dc5881e8b7f863124d109b82c936f94f",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -16,7 +16,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/barryvdh/laravel-ide-helper/5c304db44fba8e9c4aa0c09739e59f7be7736fdd.zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-ide-helper/zipball/5c304db44fba8e9c4aa0c09739e59f7be7736fdd",
                 "reference": "5c304db44fba8e9c4aa0c09739e59f7be7736fdd",
                 "shasum": ""
             },
@@ -89,7 +89,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/barryvdh/ReflectionDocBlock/3dcbd98b5d9384a5357266efba8fd29884458e5c.zip",
+                "url": "https://api.github.com/repos/barryvdh/ReflectionDocBlock/zipball/3dcbd98b5d9384a5357266efba8fd29884458e5c",
                 "reference": "3dcbd98b5d9384a5357266efba8fd29884458e5c",
                 "shasum": ""
             },
@@ -504,7 +504,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/itsgoingd/clockwork/3580b0b1406dc69a51359679acaa150d81a74ccb.zip",
+                "url": "https://api.github.com/repos/itsgoingd/clockwork/zipball/3580b0b1406dc69a51359679acaa150d81a74ccb",
                 "reference": "3580b0b1406dc69a51359679acaa150d81a74ccb",
                 "shasum": ""
             },
@@ -703,7 +703,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/laravel/framework/d7e6a7aab600c5cfae595ea22074ac3c536cbc28.zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/d7e6a7aab600c5cfae595ea22074ac3c536cbc28",
                 "reference": "d7e6a7aab600c5cfae595ea22074ac3c536cbc28",
                 "shasum": ""
             },
@@ -837,7 +837,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/laravel/tinker/852c2abe0b0991555a403f1c0583e64de6acb4a6.zip",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/852c2abe0b0991555a403f1c0583e64de6acb4a6",
                 "reference": "852c2abe0b0991555a403f1c0583e64de6acb4a6",
                 "shasum": ""
             },
@@ -1758,7 +1758,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/class-loader/386a294d621576302e7cc36965d6ed53b8c73c4f.zip",
+                "url": "https://api.github.com/repos/symfony/class-loader/zipball/386a294d621576302e7cc36965d6ed53b8c73c4f",
                 "reference": "386a294d621576302e7cc36965d6ed53b8c73c4f",
                 "shasum": ""
             },
@@ -2651,16 +2651,16 @@
         },
         {
             "name": "zl0314/jq-batch-upload",
-            "version": "1.0",
+            "version": "v1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zl0314/jq-batch-upload.git",
-                "reference": "a118d06b054bc8d1c1ab8274011836bc098b11bc"
+                "reference": "e70a23a4e0ed9a30364ebd12d147403841ca2d74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/zl0314/jq-batch-upload/a118d06b054bc8d1c1ab8274011836bc098b11bc.zip",
-                "reference": "a118d06b054bc8d1c1ab8274011836bc098b11bc",
+                "url": "https://api.github.com/repos/zl0314/jq-batch-upload/zipball/e70a23a4e0ed9a30364ebd12d147403841ca2d74",
+                "reference": "e70a23a4e0ed9a30364ebd12d147403841ca2d74",
                 "shasum": ""
             },
             "require": {
@@ -2688,7 +2688,7 @@
                 "jquery upload",
                 "upload"
             ],
-            "time": "2018-05-03T01:43:54+00:00"
+            "time": "2018-07-17T06:21:34+00:00"
         }
     ],
     "packages-dev": [
@@ -3591,7 +3591,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/sebastianbergmann/phpunit/83d27937a310f2984fd575686138597147bdc7df.zip",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/83d27937a310f2984fd575686138597147bdc7df",
                 "reference": "83d27937a310f2984fd575686138597147bdc7df",
                 "shasum": ""
             },
