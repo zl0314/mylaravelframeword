@@ -1,0 +1,9 @@
+<?php
+namespace App\Model\Web;
+
+use App\Model\Common\Common{controller};
+
+class {controller} extends Common{controller}
+{
+
+}
