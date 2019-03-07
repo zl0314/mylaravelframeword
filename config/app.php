@@ -13,9 +13,12 @@ return [
     |
     */
 
-    'name' => env( 'APP_NAME', 'Laravel' ),
-    'cn_name' => 'LARAVEL',
-
+    'name'            => env('APP_NAME', 'Laravel'),
+    'cn_name'         => 'LARAVEL',
+    //PC 和手机端的模板是否分离，
+    //true分离，模板将分为 resource/views/mobile 和 resource/views/web，
+    //false 不分离， 这种情况应该是样式做了响应式，则模板文件都在resource/views/web下面
+    'PC_MB_ISOLATION' => true,
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -27,7 +30,7 @@ return [
     |
     */
 
-    'env' => env( 'APP_ENV', 'production' ),
+    'env' => env('APP_ENV', 'production'),
 
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +43,7 @@ return [
     |
     */
 
-    'debug' => env( 'APP_DEBUG', false ),
+    'debug' => env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -53,7 +56,7 @@ return [
     |
     */
 
-    'url' => env( 'APP_URL', 'http://localhost' ),
+    'url' => env('APP_URL', 'http://localhost'),
 
     /*
     |--------------------------------------------------------------------------
@@ -105,7 +108,7 @@ return [
     |
     */
 
-    'key' => env( 'APP_KEY' ),
+    'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -122,9 +125,9 @@ return [
     |
     */
 
-    'log' => env( 'APP_LOG', 'single' ),
+    'log' => env('APP_LOG', 'single'),
 
-    'log_level' => env( 'APP_LOG_LEVEL', 'debug' ),
+    'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
     |--------------------------------------------------------------------------
