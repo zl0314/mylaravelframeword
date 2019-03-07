@@ -49,8 +49,8 @@
         var html = '<label for="">内容 </label>';
         if (type == 1) {
             html += '<textarea name="value" cols="30" id="value_text" rows="10"class="form-control">{{str_replace("\r\n",'',$model->value??old('value'))}}</textarea>';
-        } else if(type == 4){
-            html += '<input type="text" name="value" value="{{$model->value??old('value')}}" class="form-control" />';
+        }else if(type == 4){
+            html += '<input type="text" name="value" value="{{str_replace("\r\n",'',$model->value??old('value'))}}" class="form-control" />';
         } else if (type == 2) {
                 html += '<input id="value" type="hidden" name="value" value="@if(!empty($model) &&$model->type == 2 || old('type') == 2){{$model->value??old('value')}}@endif" class="input-txt"/>' +
                 '            <input type="button" class="ajaxUploadBtn btn-primary btn" id="value_button"' +

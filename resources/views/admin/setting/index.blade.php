@@ -35,7 +35,7 @@
                         <td>{{$item->key}}</td>
                         <td>{{\App\Model\Admin\Setting::getValueType()[$item->type]}}</td>
                         <td>
-                            @if($item->type == 3)
+                            @if($item->type == 3 || $item->type == 1)
                                 <div id="iframe_customize_html_{{$item->id}}" style="display:none;">
                                     {!! $item->value !!}
                                 </div>
@@ -44,7 +44,7 @@
                                 <div id="iframe_customize_html_{{ $item->id}}" style="display:none;">
                                     <img src="{{ $item->value}}" alt="">
                                 </div>
-                                <a href="javascript:iframe_customize_html('{{$item->id}}');" >点击查看图片</a>
+                                <a href="javascript:iframe_customize_html('{{$item->id}}');">点击查看图片</a>
 
                             @else
                                 {!! $item->value !!}

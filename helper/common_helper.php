@@ -12,9 +12,9 @@ use Illuminate\Support\Facades\Log;
  *
  * @param string $path 路径名称
  */
-function creat_dir_with_filepath ( $path, $mode = 0777 )
+function creat_dir_with_filepath($path, $mode = 0777)
 {
-    return creat_dir( dirname( $path ), $mode );
+    return creat_dir(dirname($path), $mode);
 }
 
 /**
@@ -22,11 +22,11 @@ function creat_dir_with_filepath ( $path, $mode = 0777 )
  *
  * @param string $path 路径名称
  */
-function creat_dir ( $path, $mode = 0777 )
+function creat_dir($path, $mode = 0777)
 {
-    if ( !is_dir( $path ) ) {
-        if ( creat_dir( dirname( $path ) ) ) {
-            return @mkdir( $path, $mode );
+    if (!is_dir($path)) {
+        if (creat_dir(dirname($path))) {
+            return @mkdir($path, $mode);
         }
     } else {
         return true;
@@ -35,41 +35,41 @@ function creat_dir ( $path, $mode = 0777 )
 
 
 //过滤字符
-function newhtmlspecialchars ( $string )
+function newhtmlspecialchars($string)
 {
-    if ( is_array( $string ) ) {
-        return array_map( 'newhtmlspecialchars', $string );
+    if (is_array($string)) {
+        return array_map('newhtmlspecialchars', $string);
     } else {
-        $string = htmlspecialchars( $string );
-        $string = sstripslashes( $string );
-        $string = saddslashes( $string );
+        $string = htmlspecialchars($string);
+        $string = sstripslashes($string);
+        $string = saddslashes($string);
 
-        return trim( $string );
+        return trim($string);
     }
 }
 
 //去掉slassh
-function sstripslashes ( $string )
+function sstripslashes($string)
 {
-    if ( is_array( $string ) ) {
-        foreach ( $string as $key => $val ) {
-            $string[ $key ] = sstripslashes( $val );
+    if (is_array($string)) {
+        foreach ($string as $key => $val) {
+            $string[$key] = sstripslashes($val);
         }
     } else {
-        $string = stripslashes( $string );
+        $string = stripslashes($string);
     }
 
     return $string;
 }
 
-function saddslashes ( $string )
+function saddslashes($string)
 {
-    if ( is_array( $string ) ) {
-        foreach ( $string as $key => $val ) {
-            $string[ $key ] = saddslashes( $val );
+    if (is_array($string)) {
+        foreach ($string as $key => $val) {
+            $string[$key] = saddslashes($val);
         }
     } else {
-        $string = addslashes( $string );
+        $string = addslashes($string);
     }
 
     return $string;
@@ -80,18 +80,18 @@ function saddslashes ( $string )
  *
  * @param $cellphone
  */
-function isMobile ( $cellphone )
+function isMobile($cellphone)
 {
     $pattern = "/^(13|15|18|17|14|16){1}\d{9}$/";
 
-    return str_match( $pattern, $cellphone );
+    return str_match($pattern, $cellphone);
 }
 
 //字符串匹配
-function str_match ( $pattern, $str )
+function str_match($pattern, $str)
 {
-    if ( !empty( $str ) ) {
-        if ( preg_match( $pattern, $str ) ) {
+    if (!empty($str)) {
+        if (preg_match($pattern, $str)) {
             return true;
         }
     }
@@ -100,11 +100,11 @@ function str_match ( $pattern, $str )
 }
 
 //解密前端加密的数据
-function parseEncryptData ()
+function parseEncryptData()
 {
-    $data = request()->post( 'data' );
-    $formData = app( 'rsa' )->privateDecrypt( $data );
-    parse_str( $formData, $result );
+    $data = request()->post('data');
+    $formData = app('rsa')->privateDecrypt($data);
+    parse_str($formData, $result);
 
     return $result;
 }
@@ -115,13 +115,13 @@ function parseEncryptData ()
  * @$mobile  手机号
  * @$content 短信内容
  */
-function sendUserMessage ( $mobile = '', $content = '' )
+function sendUserMessage($mobile = '', $content = '')
 {
-    if ( $mobile == '' && $content == '' ) {
+    if ($mobile == '' && $content == '') {
         return false;
     }
     $sn = 'SDK-WKS-010-00921'; //提供的账号
-    $pwd = strtoupper( md5( $sn . '6@d953@4d59' ) );
+    $pwd = strtoupper(md5($sn . '6@d953@4d59'));
     $data = [
         'sn'      => $sn, //提供的账号
         'pwd'     => $pwd, //此处密码需要加密 加密方式为 md5(sn+password) 32位大写
@@ -133,72 +133,72 @@ function sendUserMessage ( $mobile = '', $content = '' )
         'msgfmt'  => '',
     ];
     $url = "http://sdk2.entinfo.cn:8061/mdsmssend.ashx";
-    $retult = api_notice_increment( $url, $data );
-    $retult = str_replace( "<?xml version=\"1.0\" encoding=\"utf-8\"?>", "", $retult );
-    $retult = str_replace( "<string xmlns=\"http://tempuri.org/\">", "", $retult );
-    $retult = str_replace( "</string>", "", $retult );
-    if ( $retult > 0 ) {
-        Log::error( $mobile . '发送成功返回值为:' . $retult . ' content ' . $content );
+    $retult = api_notice_increment($url, $data);
+    $retult = str_replace("<?xml version=\"1.0\" encoding=\"utf-8\"?>", "", $retult);
+    $retult = str_replace("<string xmlns=\"http://tempuri.org/\">", "", $retult);
+    $retult = str_replace("</string>", "", $retult);
+    if ($retult > 0) {
+        Log::error($mobile . '发送成功返回值为:' . $retult . ' content ' . $content);
 
         return true;
     } else {
-        Log::error( $mobile . '发送失败 返回值为 : ' . $retult . ' content ' . $content );
+        Log::error($mobile . '发送失败 返回值为 : ' . $retult . ' content ' . $content);
 
         return true;
     }
 }
 
-function api_notice_increment ( $url, $data )
+function api_notice_increment($url, $data)
 {
     $curl = curl_init(); // 启动一个CURL会话
-    curl_setopt( $curl, CURLOPT_URL, $url ); // 要访问的地址
+    curl_setopt($curl, CURLOPT_URL, $url); // 要访问的地址
     //curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0); // 对认证证书来源的检查
     //curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 1); // 从证书中检查SSL加密算法是否存在
-    curl_setopt( $curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT'] ); // 模拟用户使用的浏览器
-    curl_setopt( $curl, CURLOPT_FOLLOWLOCATION, 1 ); // 使用自动跳转
-    curl_setopt( $curl, CURLOPT_AUTOREFERER, 1 ); // 自动设置Referer
-    curl_setopt( $curl, CURLOPT_POST, 1 ); // 发送一个常规的Post请求
-    $data = http_build_query( $data );
-    curl_setopt( $curl, CURLOPT_POSTFIELDS, $data ); // Post提交的数据包
-    curl_setopt( $curl, CURLOPT_TIMEOUT, 30 ); // 设置超时限制防止死循环
-    curl_setopt( $curl, CURLOPT_HEADER, 0 ); // 显示返回的Header区域内容
-    curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 ); // 获取的信息以文件流的形式返回
+    curl_setopt($curl, CURLOPT_USERAGENT, $_SERVER['HTTP_USER_AGENT']); // 模拟用户使用的浏览器
+    curl_setopt($curl, CURLOPT_FOLLOWLOCATION, 1); // 使用自动跳转
+    curl_setopt($curl, CURLOPT_AUTOREFERER, 1); // 自动设置Referer
+    curl_setopt($curl, CURLOPT_POST, 1); // 发送一个常规的Post请求
+    $data = http_build_query($data);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, $data); // Post提交的数据包
+    curl_setopt($curl, CURLOPT_TIMEOUT, 30); // 设置超时限制防止死循环
+    curl_setopt($curl, CURLOPT_HEADER, 0); // 显示返回的Header区域内容
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); // 获取的信息以文件流的形式返回
 
-    $lst = curl_exec( $curl );
-    if ( curl_errno( $curl ) ) {
-        Log::error( 'Errno' . curl_error( $curl ) );//捕抓异常
+    $lst = curl_exec($curl);
+    if (curl_errno($curl)) {
+        Log::error('Errno' . curl_error($curl));//捕抓异常
     }
-    curl_close( $curl );
+    curl_close($curl);
 
     return $lst;
 }
 
 
 //获取在线IP
-function getonlineip ( $format = 0 )
+function getonlineip($format = 0)
 {
 
-    if ( isset( $_SERVER['HTTP_CDN_SRC_IP'] ) && $_SERVER['HTTP_CDN_SRC_IP'] && strcasecmp( $_SERVER['HTTP_CDN_SRC_IP'], 'unknown' ) ) {
+    if (isset($_SERVER['HTTP_CDN_SRC_IP']) && $_SERVER['HTTP_CDN_SRC_IP'] && strcasecmp($_SERVER['HTTP_CDN_SRC_IP'], 'unknown')) {
         $onlineip = $_SERVER['HTTP_CDN_SRC_IP'];
-    } elseif ( getenv( 'HTTP_CLIENT_IP' ) && strcasecmp( getenv( 'HTTP_CLIENT_IP' ), 'unknown' ) ) {
-        $onlineip = getenv( 'HTTP_CLIENT_IP' );
-    } elseif ( getenv( 'HTTP_X_FORWARDED_FOR' ) && strcasecmp( getenv( 'HTTP_X_FORWARDED_FOR' ), 'unknown' ) ) {
-        $onlineip = getenv( 'HTTP_X_FORWARDED_FOR' );
-    } elseif ( getenv( 'REMOTE_ADDR' ) && strcasecmp( getenv( 'REMOTE_ADDR' ), 'unknown' ) ) {
-        $onlineip = getenv( 'REMOTE_ADDR' );
-    } elseif ( isset( $_SERVER['REMOTE_ADDR'] ) && $_SERVER['REMOTE_ADDR'] && strcasecmp( $_SERVER['REMOTE_ADDR'], 'unknown' ) ) {
+    } elseif (getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
+        $onlineip = getenv('HTTP_CLIENT_IP');
+    } elseif (getenv('HTTP_X_FORWARDED_FOR') && strcasecmp(getenv('HTTP_X_FORWARDED_FOR'), 'unknown')) {
+        $onlineip = getenv('HTTP_X_FORWARDED_FOR');
+    } elseif (getenv('REMOTE_ADDR') && strcasecmp(getenv('REMOTE_ADDR'), 'unknown')) {
+        $onlineip = getenv('REMOTE_ADDR');
+    } elseif (isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], 'unknown')) {
         $onlineip = $_SERVER['REMOTE_ADDR'];
     }
-    preg_match( "/[\d\.]{7,15}/", $onlineip, $onlineipmatches );
+    preg_match("/[\d\.]{7,15}/", $onlineip, $onlineipmatches);
     $onlineip = $onlineipmatches[0] ? $onlineipmatches[0] : 'unknown';
 
-    if ( $format ) {
-        $ips = explode( '.', $onlineip );
-        for ( $i = 0; $i < 3; $i++ ) {
-            $ips[ $i ] = intval( $ips[ $i ] );
+    if ($format) {
+        $ips = explode('.', $onlineip);
+        for ($i = 0; $i < 3; $i++) {
+            $ips[$i] = intval($ips[$i]);
         }
 
-        return sprintf( '%03d%03d%03d', $ips[0], $ips[1], $ips[2] );
+        return sprintf('%03d%03d%03d', $ips[0], $ips[1], $ips[2]);
     } else {
         return $onlineip;
     }
@@ -210,11 +210,11 @@ function getonlineip ( $format = 0 )
  * @param $intro    内容
  * @param $wrapper  外面包围的标签
  */
-function getParseIntro ( $intro, $wrapper = 'p', $delimiter = PHP_EOL )
+function getParseIntro($intro, $wrapper = 'p', $delimiter = PHP_EOL)
 {
-    $intro = explode( PHP_EOL, $intro );
+    $intro = explode(PHP_EOL, $intro);
     $html = '';
-    foreach ( $intro as $k => $r ) {
+    foreach ($intro as $k => $r) {
         $html .= '<' . $wrapper . '>' . $r . '</' . $wrapper . '>';
     }
 
@@ -229,10 +229,10 @@ function getParseIntro ( $intro, $wrapper = 'p', $delimiter = PHP_EOL )
  *
  * @return string
  */
-function parseVideo ( $video, $width = '1280px', $height = '640px' )
+function parseVideo($video, $width = '1280px', $height = '640px')
 {
     $html = '';
-    if ( strpos( $video->video_url, '.mp4' ) !== false ) {
+    if (strpos($video->video_url, '.mp4') !== false) {
         $html = '<video src="' . $video->video_url . '" poster="' . $video->thumb . '" preload="preload" controls="controls"></video>';
     } else {
         $html = '<iframe src="' . $video->video_url . '" style="width:' . $width . ';height:' . $height . ';" scrolling="false" frameborder="0"></iframe>';
@@ -248,11 +248,11 @@ function parseVideo ( $video, $width = '1280px', $height = '640px' )
  * @param  $model 模型
  * @param  $url   链接
  */
-function getPrevItem ( $item, $model, $url = '' )
+function getPrevItem($item, $model, $url = '')
 {
     $model = new $model;
-    $prev = $model->where( 'id', '<', $item->id )->orderBy( 'id', 'desc' )->first();
-    if ( !empty( $prev->id ) ) {
+    $prev = $model->where('id', '<', $item->id)->orderBy('id', 'desc')->first();
+    if (!empty($prev->id)) {
         return [
             'title' => $prev->title,
             'url'   => $url . '/' . $prev->id . '?id=' . $prev->id,
@@ -272,11 +272,11 @@ function getPrevItem ( $item, $model, $url = '' )
  * @param  $model 模型
  * @param  $url   链接
  */
-function getNextItem ( $item, $model, $url = '' )
+function getNextItem($item, $model, $url = '')
 {
     $model = new $model;
-    $next = $model->where( 'id', '>', $item->id )->orderBy( 'id', 'asc' )->first();
-    if ( !empty( $next->id ) ) {
+    $next = $model->where('id', '>', $item->id)->orderBy('id', 'asc')->first();
+    if (!empty($next->id)) {
         return [
             'title' => $next->title,
             'url'   => $url . '/' . $next->id . '?id=' . $next->id,
@@ -291,10 +291,10 @@ function getNextItem ( $item, $model, $url = '' )
 
 
 //如果URL没有HTTP， 添加HTTP， 如果URL为空，则链接为javascript:;
-function get_add_http_url ( $url = '' )
+function get_add_http_url($url = '')
 {
-    if ( $url ) {
-        if ( strpos( $url, 'http' ) !== false ) {
+    if ($url) {
+        if (strpos($url, 'http') !== false) {
             return $url;
         } else {
             return 'http://' . $url;
@@ -309,21 +309,21 @@ function get_add_http_url ( $url = '' )
  * 得到URL对应的控制器， 用RSA加密
  * @return mixed
  */
-function getUrlController ()
+function getUrlController()
 {
     $controller = request()->route()->getActionName();
-    $controller = substr( $controller, 0, strpos( $controller, '@' ) );
+    $controller = substr($controller, 0, strpos($controller, '@'));
 
-    return app( 'rsa' )->publicDecrypt( $controller );
+    return app('rsa')->publicDecrypt($controller);
 }
 
 /**
  * 得到URL对应的模型， 用RSA加密
  * @return mixed
  */
-function getUrlModel ()
+function getUrlModel()
 {
-    return app( 'rsa' )->publicDecrypt( request()->route()->getController()->model );
+    return app('rsa')->publicDecrypt(request()->route()->getController()->model);
 }
 
 /**
@@ -333,11 +333,11 @@ function getUrlModel ()
  *
  * @return data Obj
  */
-function getDataPaginate ( $data )
+function getDataPaginate($data)
 {
     $params = getPaginateParams();
 
-    return $data->appends( $params )->links();
+    return $data->appends($params)->links();
 
 }
 
@@ -345,12 +345,12 @@ function getDataPaginate ( $data )
  * 分页时，URL中的参数添加到分页参数里
  * @return array
  */
-function getPaginateParams ()
+function getPaginateParams()
 {
     $params = [];
     $gets = request()->all();
-    foreach ( $gets as $k => $r ) {
-        $params[ $k ] = request()->get( $k );
+    foreach ($gets as $k => $r) {
+        $params[$k] = request()->get($k);
     }
 
     return $params;
@@ -360,23 +360,24 @@ function getPaginateParams ()
  * @return \Illuminate\Foundation\Application|mixed
  * 获取缓存实例 App\Providers中注册的Zcache
  */
-function zcache ()
+function zcache()
 {
-    return app( 'Zcache' );
+    return app('Zcache');
 }
+
 
 /**
  * @param      $key  键
  *
  * @return mixed
  */
-function getWebSet ( $key )
+function getWebSet($key, $default = '')
 {
-    $res = zcache()->remember( $key, function () use ( $key ) {
-        $set = Setting::where( [ 'key' => $key ] )->first();
+    $res = zcache()->remember($key, function () use ($key) {
+        $set = \App\Model\Web\Setting::where(['key' => $key])->first();
 
         return $set->value ?? '';
-    }, 'setting' );
+    }, 'setting');
 
-    return $res ?? '';
+    return !empty($res) ? $res : (!empty($default) ? $default : $key);
 }
