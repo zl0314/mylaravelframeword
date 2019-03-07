@@ -48,7 +48,7 @@ class FrontController extends CommonController
     protected function getTemplate ( $template )
     {
 
-        $template_dir = $this->isMobile ? 'mobile' : 'web';
+        $template_dir = $this->isMobile && config('app.PC_MB_ISOLATION') ? 'mobile' : 'web';
         $template = $template ? $template : $template_dir . '.' . $this->siteClass . '.' . $this->siteMethod;
         $template_file = resource_path() . '/views/' . str_replace( '.', '/', $template ) . '.blade.php';
 
